@@ -1,0 +1,50 @@
+{
+  "name": "smart-doc-assistant",
+  "version": "1.0.0",
+  "description": "Agent RAG conversationnel — LangGraph + ChromaDB + FastAPI + React 18",
+  "author": "Alexis MASSOL",
+  "license": "SEE LICENSE IN LICENSE",
+  "private": true,
+  "scripts": {
+    "start": "concurrently --names \"BACK,FRONT\" --prefix \"{name}\" --prefix-colors \"bgBlue.bold.white,bgGreen.bold.white\" --kill-others-on-fail \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:backend": "bash scripts/start-backend.sh",
+    "start:frontend": "cd frontend && npm run dev",
+    "stop": "npm run stop:backend && npm run stop:frontend",
+    "stop:backend": "pkill -f 'uvicorn.*8000' || lsof -ti :8000 | xargs kill -9 2>/dev/null || true",
+    "stop:frontend": "pkill -f 'vite.*5173' || lsof -ti :5173 | xargs kill -9 2>/dev/null || true",
+    "dev": "bash scripts/dev.sh",
+    "setup": "bash scripts/setup.sh",
+    "check": "bash scripts/check_ollama.sh",
+    "docker:start": "bash scripts/start-docker.sh",
+    "docker:stop": "bash scripts/stop-docker.sh",
+    "docker:start:detach": "bash scripts/start-docker.sh --detach",
+    "docker:build": "bash scripts/start-docker.sh --build-only",
+    "docker:logs": "cd docker && docker-compose logs -f",
+    "docker:ps": "cd docker && docker-compose ps",
+    "docker:down": "cd docker && docker-compose down",
+    "docker:clean": "bash scripts/stop-docker.sh --clean",
+    "test:unit": "cd backend && source venv/bin/activate && pytest tests/unit/ -v",
+    "test:integration": "cd backend && source venv/bin/activate && pytest tests/integration/ -v",
+    "test:all": "cd backend && source venv/bin/activate && pytest tests/ -v --cov=. --cov-report=html",
+    "test:coverage": "cd backend && source venv/bin/activate && pytest tests/ --cov=. --cov-report=term-missing",
+    "test:frontend": "cd frontend && npm run test",
+    "test:frontend:coverage": "cd frontend && npm run test:coverage",
+    "test:e2e": "cd e2e && npx playwright test --config=playwright.config.js",
+    "test:ingest": "cd backend && source venv/bin/activate && python scripts/test_ingest.py",
+    "test:retrieval": "cd backend && source venv/bin/activate && python scripts/test_retrieval.py",
+    "test:agent": "cd backend && source venv/bin/activate && python scripts/test_agent.py"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "rag",
+    "llm",
+    "langgraph",
+    "langchain",
+    "chromadb",
+    "fastapi",
+    "react",
+    "sqlite"
+  ]
+}

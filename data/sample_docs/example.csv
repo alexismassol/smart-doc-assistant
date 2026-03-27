@@ -1,0 +1,32 @@
+technologie,categorie,role,version,notes
+LangGraph,orchestration,orchestration agent RAG,0.2+,StateGraph avec edges conditionnels
+LangChain,framework LLM,loaders + splitters + chains,0.3+,RecursiveCharacterTextSplitter chunk_size=500
+ChromaDB,vector store,stockage embeddings persistant,0.5+,collection smart_docs algorithme HNSW
+FastAPI,backend,API REST async,0.110+,Swagger sur /docs port 8000
+React,frontend,interface utilisateur,18,composants fonctionnels + hooks custom
+Vite,frontend,build tool dev server HMR,5,proxy /api vers localhost:8000
+TailwindCSS,frontend,styling CSS utilitaire,3,design dark premium
+Ollama,LLM,serveur LLM local,latest,modele mistral 7B port 11434
+Mistral API,LLM,LLM production cloud,mistral-small-latest,necessite MISTRAL_API_KEY
+Claude Haiku,LLM,LLM alternatif Anthropic,claude-haiku-4-5,necessite ANTHROPIC_API_KEY
+nomic-embed-text,embeddings,generation embeddings,latest,via Ollama 100% local
+PyMuPDF,parsing,extraction texte PDF,1.24+,rapide avec metadonnees page
+BeautifulSoup4,scraping,parsing HTML pages web,latest,avec httpx pour requetes HTTP
+Pydantic Settings v2,config,validation variables env,v2,fichier .env type-safe
+SQLite,persistance,historique conversations,stdlib Python,fichier data/history.db
+pytest,tests backend,tests unitaires et integration,latest,coverage cible 80%
+Vitest,tests frontend,tests composants React,2.x,remplacement Jest pour Vite
+React Testing Library,tests frontend,tests comportement UI,16,render screen userEvent
+Playwright,tests E2E,tests parcours utilisateur,1.48+,chromium headless
+Docker,infrastructure,containerisation services,latest,multi-stage build frontend
+nginx,infrastructure,reverse proxy frontend Docker,alpine,proxy /api + serve static
+uvicorn,backend,serveur ASGI Python,latest,reload automatique en dev
+concurrently,scripts,lancement services parallele,8.x,labels BACK FRONT colores
+endpoint,api,POST /api/chat,v1,question session_id -> answer sources confidence latency_ms
+endpoint,api,GET /api/history/{session_id},v1,retourne messages avec limit optionnel
+endpoint,api,DELETE /api/history/{session_id},v1,efface SQLite et memoire in-process
+endpoint,api,GET /api/sessions,v1,liste sessions avec message_count last_message_at
+endpoint,api,POST /api/upload,v1,multipart PDF CSV MD TXT max 10MB
+endpoint,api,POST /api/ingest-url,v1,ingestion page web via URL
+endpoint,api,GET /api/documents,v1,liste documents indexes avec chunk_count
+endpoint,api,DELETE /api/documents/{source},v1,supprime document et chunks ChromaDB
