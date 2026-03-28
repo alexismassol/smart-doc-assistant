@@ -1,0 +1,50 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# Dockerfile.backend — Smart Doc Assistant · FastAPI + Python 3.11
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# Stack : Python 3.11-slim, FastAPI, Uvicorn, LangChain, LangGraph, ChromaDB
+# Port  : 8000
+#
+# Note : Ollama tourne en sidecar (service séparé dans docker-compose.yml)
+#        Les volumes data/chroma_db et data/history.db sont montés.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+FROM python:3.11-slim
+
+# Métadonnées
+LABEL maintainer="Alexis MASSOL"
+LABEL description="Smart Doc Assistant — FastAPI Backend"
+
+WORKDIR /app
+
+# ── Dépendances système ─────────────────────────────────────────────────────
+# gcc + libffi pour certains packages Python (cryptography, etc.)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    libffi-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# ── Dépendances Python ──────────────────────────────────────────────────────
+# Copier requirements.txt en premier pour bénéficier du cache Docker
+COPY backend/requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# ── Code source ─────────────────────────────────────────────────────────────
+# Copier backend/ dans /app/backend/ pour conserver la structure de packages
+# (main.py fait `from backend.api.routes_chat import ...`)
+COPY backend/ ./backend/
+
+# ── Création des dossiers de données ────────────────────────────────────────
+RUN mkdir -p data/chroma_db data/sample_docs
+
+# ── Utilisateur non-root (principe de moindre privilège) ────────────────────
+RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
+USER appuser
+
+# ── Exposition du port ──────────────────────────────────────────────────────
+EXPOSE 8000
+
+# ── Point d'entrée ──────────────────────────────────────────────────────────
+# Lancement depuis /app avec le module backend.main (package path complet)
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]

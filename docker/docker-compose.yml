@@ -1,0 +1,89 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# docker-compose.yml — Smart Doc Assistant
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# Services :
+#   backend  — FastAPI + Uvicorn (Python 3.11) → port 8000
+#   frontend — React 18 + Nginx              → port 80
+#   ollama   — Serveur Ollama local           → port 11434
+#
+# Volumes persistants :
+#   smart-data     — ChromaDB + SQLite history (data/)
+#   ollama-models  — Modèles Ollama téléchargés (évite de re-télécharger)
+#
+# Usage :
+#   npm run docker:start           → build + lance (interactif)
+#   npm run docker:start:detach    → build + lance en arrière-plan
+#   npm run docker:stop            → arrête les conteneurs
+#   npm run docker:logs            → voir les logs en direct
+# ═══════════════════════════════════════════════════════════════════════════════
+
+services:
+
+  # ── Backend FastAPI ─────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.backend
+    container_name: smart-doc-backend
+    # Port 8000 accessible uniquement via Nginx (réseau Docker interne)
+    # Décommenter pour debug direct : - "${BACKEND_PORT:-8000}:8000"
+    volumes:
+      # Persistance ChromaDB et SQLite history — survie aux redémarrages
+      - smart-data:/app/data
+    env_file:
+      - ../.env
+    environment:
+      # En Docker, Ollama est le service "ollama" (DNS interne)
+      - OLLAMA_BASE_URL=http://ollama:11434
+      # Chemins dans le conteneur (volume monté sur /app/data)
+      - CHROMA_PERSIST_DIR=/app/data/chroma_db
+      - HISTORY_DB_PATH=/app/data/history.db
+      - CORS_ORIGINS=http://localhost
+    depends_on:
+      - ollama
+    restart: unless-stopped
+    networks:
+      - smart-network
+
+  # ── Frontend React + Nginx ──────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.frontend
+    container_name: smart-doc-frontend
+    ports:
+      - "${FRONTEND_PORT:-80}:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - smart-network
+
+  # ── Ollama (LLM local) ──────────────────────────────────────────────────────
+  # Requiert que les modèles soient téléchargés dans le volume ollama-models
+  # Après `docker:start`, lancer : docker exec smart-doc-ollama ollama pull mistral
+  ollama:
+    image: ollama/ollama:latest
+    container_name: smart-doc-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      # Modèles persistants — évite de re-télécharger à chaque rebuild
+      - ollama-models:/root/.ollama
+    restart: unless-stopped
+    networks:
+      - smart-network
+
+# ── Réseaux ─────────────────────────────────────────────────────────────────
+networks:
+  smart-network:
+    driver: bridge
+    name: ${COMPOSE_PROJECT_NAME:-smart-doc-assistant}-network
+
+# ── Volumes persistants ─────────────────────────────────────────────────────
+volumes:
+  smart-data:
+    name: ${COMPOSE_PROJECT_NAME:-smart-doc-assistant}-data
+  ollama-models:
+    name: ${COMPOSE_PROJECT_NAME:-smart-doc-assistant}-ollama-models

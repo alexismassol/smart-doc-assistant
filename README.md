@@ -21,6 +21,14 @@
 
 ---
 
+## Aperçu
+
+| Interface principale | Streaming en cours | Sources citées |
+|---|---|---|
+| ![Interface](assets/screenshots/chat-demo1.png) | ![Streaming](assets/screenshots/chat-demo3.png) | ![Sources](assets/screenshots/chat-demo5.png) |
+
+---
+
 ## Présentation
 
 **Smart Doc Assistant** est un agent IA de type **RAG (Retrieval Augmented Generation)** qui permet d'interroger une base de documents hétérogènes en langage naturel, avec citation des sources.
@@ -88,7 +96,53 @@ L'architecture repose sur :
 
 - [Python 3.11+](https://python.org)
 - [Node.js 18+](https://nodejs.org)
-- [Ollama](https://ollama.ai) (pour le mode local gratuit)
+- [Ollama](https://ollama.ai) — pour le mode local gratuit (voir installation ci-dessous)
+
+### Installation d'Ollama
+
+**macOS**
+```bash
+# Option 1 — Application native (recommandée)
+# Télécharger le .dmg sur https://ollama.ai/download/mac puis l'installer
+
+# Option 2 — Homebrew
+brew install ollama
+ollama serve   # lancer le serveur
+```
+
+**Linux** (Ubuntu, Debian, Fedora, Arch…)
+```bash
+curl -fsSL https://ollama.ai/install.sh | sh
+ollama serve   # lancer le serveur (ou il tourne en service systemd)
+```
+
+**Windows**
+```bash
+# Télécharger l'installeur .exe sur https://ollama.ai/download/windows
+# Ollama tourne ensuite en arrière-plan automatiquement
+# WSL2 recommandé pour de meilleures performances GPU
+```
+
+**VPS / Serveur distant** (OVH, AWS, Hetzner…)
+```bash
+# Installation identique à Linux
+curl -fsSL https://ollama.ai/install.sh | sh
+
+# Lancer en service systemd (persistant après reboot)
+sudo systemctl enable ollama
+sudo systemctl start ollama
+
+# Exposer Ollama sur le réseau (pour un backend sur un autre container)
+OLLAMA_HOST=0.0.0.0 ollama serve
+
+# Dans .env du projet, pointer vers le VPS :
+# OLLAMA_BASE_URL=http://votre-ip:11434
+```
+
+Après installation, vérifier que tout est prêt :
+```bash
+npm run check   # vérifie Ollama + modèles mistral + nomic-embed-text
+```
 
 ### Installation
 
@@ -96,29 +150,26 @@ L'architecture repose sur :
 git clone https://github.com/votre-username/smart-doc-assistant.git
 cd smart-doc-assistant
 
-# Installation complète automatique
+# Installation complète automatique (venv Python + npm + modèles Ollama)
 npm run setup
 ```
 
 Le script `setup.sh` installe automatiquement :
 - Le virtualenv Python + toutes les dépendances backend
 - Les packages npm du frontend React
-- Les modèles Ollama (`mistral` + `nomic-embed-text`)
+- Les modèles Ollama (`mistral` + `nomic-embed-text`) si absents
 
 ### Démarrage — mode développement
 
 ```bash
 # Lance backend (FastAPI :8000) + frontend (React :5173) simultanément
-npm run start
+npm start
 
-# Ou avec logs colorés par service (BACK / FRONT)
-npm run dev
+# Arrêter les deux serveurs
+npm stop
 ```
 
 Ouvrir [http://localhost:5173](http://localhost:5173)
-
-> **`npm run start`** utilise `concurrently` pour lancer les deux serveurs en parallèle avec des labels colorés.\
-> **`npm run dev`** utilise le script `scripts/dev.sh` (même résultat, sans `concurrently`).
 
 ### Démarrage — mode Docker
 
@@ -168,13 +219,12 @@ ANTHROPIC_API_KEY=votre_clé_ici
 | Commande | Description |
 |---|---|
 | `npm run setup` | Installation complète (venv + npm + ollama pull + playwright) |
-| `npm run start` | Lance backend + frontend (concurrently, logs colorés) |
+| `npm start` | Lance backend + frontend (concurrently, logs colorés) |
+| `npm stop` | Arrête backend + frontend |
 | `npm run start:backend` | Backend FastAPI seul (port 8000) |
 | `npm run start:frontend` | Frontend React seul (port 5173) |
-| `npm run stop` | Arrête backend + frontend |
 | `npm run stop:backend` | Arrête uniquement le backend |
 | `npm run stop:frontend` | Arrête uniquement le frontend |
-| `npm run dev` | Même chose que `start` via `scripts/dev.sh` |
 | `npm run check` | Vérifie Ollama + modèles présents |
 
 ### Docker
@@ -261,12 +311,58 @@ Voir [`docs/API.md`](docs/API.md) pour la référence complète.
 
 ---
 
+## Tester l'application
+
+Un document de démonstration est inclus dans `data/sample_docs/example.md`. Il contient la documentation complète du projet (architecture, configuration, API, tests).
+
+### 1. Uploader le document
+
+Dans l'interface, ouvrir le panneau **DOCUMENTS** et déposer `data/sample_docs/example.md` (ou cliquer pour sélectionner le fichier).
+
+Le pipeline s'exécute automatiquement : chargement → découpage en chunks → embeddings `nomic-embed-text` → stockage ChromaDB.
+
+### 2. Questions à poser
+
+| Question | Ce que ça teste |
+|---|---|
+| `Quels sont les nœuds du graph LangGraph ?` | Retrieval sur l'architecture agent |
+| `Quelle est la taille des chunks et l'overlap ?` | Retrieval sur la configuration |
+| `Comment changer de provider LLM ?` | Retrieval sur la config `.env` |
+| `Quels formats de fichiers sont supportés ?` | Retrieval sur les fonctionnalités |
+| `Quelle est la limite de taille d'un fichier uploadé ?` | Retrieval sur les contraintes |
+| `Comment fonctionne la mémoire de conversation ?` | Retrieval sur la fenêtre glissante |
+| `Quels endpoints sont disponibles pour l'historique ?` | Retrieval sur l'API REST |
+
+### 3. Ce qu'on vérifie
+
+- **Score de confiance** affiché sous la réponse : > 60% = bon retrieval
+- **Sources citées** : le chunk utilisé doit correspondre à la question
+- **Latence** : dépend du LLM configuré (Ollama local = 10-60s CPU, Mistral API = < 1s)
+
+---
+
 ## Documentation
 
-- [`docs/TUTORIAL.md`](docs/TUTORIAL.md) — Explication de chaque technologie, pourquoi on l'utilise, alternatives
+- [`docs/TUTORIAL.md`](docs/TUTORIAL.md) — Code commenté brique par brique (ingest, agent, streaming, hooks React)
+- [`docs/TECHNOLOGIES.md`](docs/TECHNOLOGIES.md) — Chaque technologie expliquée avec alternatives
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — Architecture détaillée avec schéma
 - [`docs/SPECS.md`](docs/SPECS.md) — Spécifications fonctionnelles et techniques
 - [`docs/API.md`](docs/API.md) — Référence API complète
+- [`docs/OLLAMA.md`](docs/OLLAMA.md) — Guide Ollama : modèles, tests CLI, VPS, confidentialité
+
+---
+
+## Troubleshooting
+
+| Problème | Cause probable | Solution |
+|---|---|---|
+| `❌ Ollama n'est pas installé` | Ollama absent | Voir section [Installation d'Ollama](#installation-dollama) |
+| `❌ Le serveur Ollama ne répond pas` | Ollama non démarré | Lancer `ollama serve` dans un terminal |
+| `ModuleNotFoundError: No module named 'backend'` | Mauvais répertoire de lancement | Le script `start-backend.sh` lance depuis la racine — vérifier `npm run start` |
+| `chromadb` bloqué à l'install | Python 3.14 + `onnxruntime` absent | Le `setup.sh` gère ça automatiquement via `--no-deps` |
+| L'interface ne répond pas | Backend non démarré | Vérifier `curl http://localhost:8000/api/health` |
+| Modèle lent / timeout | CPU seul, pas de GPU | Normal sur CPU — Mistral 7B prend 10-30s/réponse sans GPU |
+| VPS — Ollama inaccessible | Firewall ou mauvais host | Lancer avec `OLLAMA_HOST=0.0.0.0 ollama serve` et ouvrir le port 11434 |
 
 ---
 

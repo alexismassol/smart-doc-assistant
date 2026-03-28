@@ -1,0 +1,1 @@
+# Package Smart Doc Assistant

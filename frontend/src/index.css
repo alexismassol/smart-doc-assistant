@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Variables globales ─────────────────────────────────────────────────────── */
+:root {
+  --dot-color: rgba(255, 255, 255, 0.06);
+  --dot-size: 1px;
+  --dot-spacing: 24px;
+  --scrollbar-width: 6px;
+}
+
+/* ── Reset & base ───────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #0a0a0a;
+  color: #f5f5f5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Dot grid background — effet Vercel/Linear */
+  background-image: radial-gradient(circle, var(--dot-color) var(--dot-size), transparent var(--dot-size));
+  background-size: var(--dot-spacing) var(--dot-spacing);
+}
+
+/* ── Scrollbar custom ───────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: var(--scrollbar-width); }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: #3a3a3a; }
+
+/* ── Sélection de texte ─────────────────────────────────────────────────────── */
+::selection {
+  background: rgba(139, 92, 246, 0.3);
+  color: #f5f5f5;
+}
+
+/* ── Typing indicator (3 points animés) ────────────────────────────────────── */
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #a3a3a3;
+  animation: typingBounce 1.2s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-6px); opacity: 1; }
+}
+
+/* ── Skeleton loader ────────────────────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, #1a1a1a 25%, #222 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Glow accent sur focus ──────────────────────────────────────────────────── */
+.input-glow:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px #8b5cf6, 0 0 12px rgba(139, 92, 246, 0.2);
+}
+
+/* ── Score badge colors ─────────────────────────────────────────────────────── */
+.score-high  { color: #10b981; background: rgba(16, 185, 129, 0.1); }
+.score-mid   { color: #f59e0b; background: rgba(245, 158, 11, 0.1); }
+.score-low   { color: #a3a3a3; background: rgba(163, 163, 163, 0.1); }

@@ -4,6 +4,8 @@
 # ── Données locales ───────────────────────────────────────────────────────────
 data/chroma_db/
 data/history.db
+backend/data/chroma_db/
+backend/data/history.db
 backend/venv/
 __pycache__/
 *.pyc

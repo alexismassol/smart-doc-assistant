@@ -1,0 +1,41 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# Dockerfile.frontend — Smart Doc Assistant · React 18 + Vite + Nginx
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# Stack   : Node.js 20-alpine (build), Nginx alpine (serve)
+# Build   : vite build → dist/ statique
+# Serve   : nginx expose port 80, proxy /api → backend:8000
+# Pattern : Multi-stage build (image finale ~20 MB vs ~1 GB avec Node.js)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ── Stage 1 : Build React ──────────────────────────────────────────────────
+FROM node:20-alpine AS builder
+
+LABEL description="Smart Doc Assistant — Frontend build stage"
+
+WORKDIR /app
+
+# Copier package.json en premier (cache Docker)
+COPY frontend/package*.json ./
+RUN npm install --silent
+
+# Copier le reste et builder
+COPY frontend/ .
+RUN npm run build
+# → Produit frontend/dist/ avec index.html + assets statiques
+
+# ── Stage 2 : Serve avec Nginx ────────────────────────────────────────────
+FROM nginx:alpine
+
+LABEL maintainer="Alexis MASSOL"
+LABEL description="Smart Doc Assistant — React Frontend (Nginx)"
+
+# Configuration Nginx — SPA + reverse proxy /api vers backend
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copier le build React depuis le stage précédent
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
