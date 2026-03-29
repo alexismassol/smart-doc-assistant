@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react'
 
 /**
- * useUpload — Gestion de l'upload de fichiers et ingestion d'URLs
+ * useUpload - Gestion de l'upload de fichiers et ingestion d'URLs
  * Uses: fetch API → POST /api/upload, POST /api/ingest-url, GET/DELETE /api/documents
  */
 export function useUpload() {

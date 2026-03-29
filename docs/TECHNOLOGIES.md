@@ -1,4 +1,4 @@
-# Tutoriel technique — Smart Doc Assistant
+# Tutoriel technique - Smart Doc Assistant
 
 > Ce document explique chaque technologie utilisée dans le projet : ce qu'elle fait, pourquoi on l'a choisie, et quelles sont les alternatives. Idéal pour comprendre l'architecture avant de contribuer, ou pour un recruteur qui veut creuser la stack.
 
@@ -6,30 +6,30 @@
 
 ## Table des matières
 
-1. [Vue d'ensemble — qu'est-ce que le RAG ?](#1-vue-densemble--quest-ce-que-le-rag-)
-2. [LangChain — le couteau suisse LLM](#2-langchain--le-couteau-suisse-llm)
-3. [LangGraph — orchestration par graphe d'état](#3-langgraph--orchestration-par-graphe-détat)
-4. [Ollama — LLM local gratuit](#4-ollama--llm-local-gratuit)
-5. [Mistral AI — LLM API open-source](#5-mistral-ai--llm-api-open-source)
-6. [nomic-embed-text — les embeddings](#6-nomic-embed-text--les-embeddings)
-7. [ChromaDB — la base vectorielle](#7-chromadb--la-base-vectorielle)
-8. [FastAPI — le backend Python](#8-fastapi--le-backend-python)
-9. [Pydantic Settings — la configuration typée](#9-pydantic-settings--la-configuration-typée)
-10. [React 18 + Vite — le frontend](#10-react-18--vite--le-frontend)
-11. [TailwindCSS — le styling](#11-tailwindcss--le-styling)
-12. [PyMuPDF — parsing de PDF](#12-pymupdf--parsing-de-pdf)
-13. [Récapitulatif — tableau des alternatives](#13-récapitulatif--tableau-des-alternatives)
+1. [Vue d'ensemble - qu'est-ce que le RAG ?](#1-vue-densemble--quest-ce-que-le-rag-)
+2. [LangChain - le couteau suisse LLM](#2-langchain--le-couteau-suisse-llm)
+3. [LangGraph - orchestration par graphe d'état](#3-langgraph--orchestration-par-graphe-détat)
+4. [Ollama - LLM local gratuit](#4-ollama--llm-local-gratuit)
+5. [Mistral AI - LLM API open-source](#5-mistral-ai--llm-api-open-source)
+6. [nomic-embed-text - les embeddings](#6-nomic-embed-text--les-embeddings)
+7. [ChromaDB - la base vectorielle](#7-chromadb--la-base-vectorielle)
+8. [FastAPI - le backend Python](#8-fastapi--le-backend-python)
+9. [Pydantic Settings - la configuration typée](#9-pydantic-settings--la-configuration-typée)
+10. [React 18 + Vite - le frontend](#10-react-18--vite--le-frontend)
+11. [TailwindCSS - le styling](#11-tailwindcss--le-styling)
+12. [PyMuPDF - parsing de PDF](#12-pymupdf--parsing-de-pdf)
+13. [Récapitulatif - tableau des alternatives](#13-récapitulatif--tableau-des-alternatives)
 
 ---
 
-## 1. Vue d'ensemble — qu'est-ce que le RAG ?
+## 1. Vue d'ensemble - qu'est-ce que le RAG ?
 
 **RAG = Retrieval-Augmented Generation**
 
 Un LLM (comme Mistral ou ChatGPT) est entraîné une fois et ne connaît pas tes documents privés. Le RAG résout ça en deux phases :
 
 ```
-Phase 1 — Ingestion (une fois par document)
+Phase 1 - Ingestion (une fois par document)
 ┌─────────────────────────────────────────────────────────┐
 │  Tes documents (PDF, CSV, MD, URL)                      │
 │       ↓                                                 │
@@ -40,7 +40,7 @@ Phase 1 — Ingestion (une fois par document)
 │  Stockage dans ChromaDB (base vectorielle)              │
 └─────────────────────────────────────────────────────────┘
 
-Phase 2 — Question (à chaque message utilisateur)
+Phase 2 - Question (à chaque message utilisateur)
 ┌─────────────────────────────────────────────────────────┐
 │  Question : "Quelle est la limite de l'API ?"           │
 │       ↓                                                 │
@@ -64,7 +64,7 @@ Phase 2 — Question (à chaque message utilisateur)
 
 ---
 
-## 2. LangChain — le couteau suisse LLM
+## 2. LangChain - le couteau suisse LLM
 
 **Site** : [langchain.com](https://www.langchain.com)
 **Version utilisée** : 0.3+
@@ -94,26 +94,26 @@ LangChain est un framework Python (et JS) qui standardise toutes les briques d'u
 
 ---
 
-## 3. LangGraph — orchestration par graphe d'état
+## 3. LangGraph - orchestration par graphe d'état
 
 **Site** : [langchain-ai.github.io/langgraph](https://langchain-ai.github.io/langgraph/)
 **Version utilisée** : 0.2+
 
 ### Ce que c'est
 
-LangGraph est une extension de LangChain qui permet de créer des agents sous forme de **graphe d'état**. Au lieu d'une chaîne linéaire (`A → B → C`), on définit des nœuds et des arêtes — avec des conditions.
+LangGraph est une extension de LangChain qui permet de créer des agents sous forme de **graphe d'état**. Au lieu d'une chaîne linéaire (`A → B → C`), on définit des nœuds et des arêtes - avec des conditions.
 
 ### Pourquoi pas juste une fonction Python ?
 
 ```python
-# ❌ Sans LangGraph — code difficile à maintenir, pas de state management
+# ❌ Sans LangGraph - code difficile à maintenir, pas de state management
 def process(question):
     chunks = retrieve(question)
     chunks = rerank(chunks)
     history = get_history()
     return generate(question, chunks, history)
 
-# ✅ Avec LangGraph — state typé, observable, testable
+# ✅ Avec LangGraph - state typé, observable, testable
 graph = StateGraph(AgentState)
 graph.add_node("retrieve", retrieve_node)
 graph.add_node("rerank", rerank_node)
@@ -150,7 +150,7 @@ graph.add_edge("retrieve", "rerank")
 
 ---
 
-## 4. Ollama — LLM local gratuit
+## 4. Ollama - LLM local gratuit
 
 **Site** : [ollama.ai](https://ollama.ai)
 
@@ -160,7 +160,7 @@ Ollama est un outil qui permet de télécharger et faire tourner des LLMs open-s
 
 ```bash
 ollama pull mistral       # Télécharge Mistral 7B (~4.4 GB)
-ollama pull phi3:mini     # Télécharge Phi-3 Mini (~2.2 GB) — plus léger
+ollama pull phi3:mini     # Télécharge Phi-3 Mini (~2.2 GB) - plus léger
 ollama pull nomic-embed-text  # Télécharge le modèle d'embeddings
 
 ollama run mistral "Bonjour !"   # Lancer une conversation
@@ -196,7 +196,7 @@ ollama rm mistral     # Supprimer un modèle
 
 ---
 
-## 5. Mistral AI — LLM API open-source
+## 5. Mistral AI - LLM API open-source
 
 **Site** : [mistral.ai](https://mistral.ai)
 
@@ -230,7 +230,7 @@ MISTRAL_MODEL=mistral-small-latest
 
 ---
 
-## 6. nomic-embed-text — les embeddings
+## 6. nomic-embed-text - les embeddings
 
 **Modèle** : `nomic-embed-text` via Ollama
 
@@ -272,7 +272,7 @@ Résultat : le chunk du document est retourné ✅
 
 ---
 
-## 7. ChromaDB — la base vectorielle
+## 7. ChromaDB - la base vectorielle
 
 **Site** : [trychroma.com](https://www.trychroma.com)
 **Version** : 0.5+
@@ -318,7 +318,7 @@ results = collection.query(
 
 ---
 
-## 8. FastAPI — le backend Python
+## 8. FastAPI - le backend Python
 
 **Site** : [fastapi.tiangolo.com](https://fastapi.tiangolo.com)
 **Version** : 0.110+
@@ -337,7 +337,7 @@ async def chat(request: ChatRequest) -> ChatResponse:
 ```
 
 - **Async natif** : gère la concurrence sans bloquer
-- **Swagger auto** : `http://localhost:8000/docs` — généré sans effort
+- **Swagger auto** : `http://localhost:8000/docs` - généré sans effort
 - **Pydantic intégré** : validation des requêtes/réponses
 
 ### Alternatives
@@ -351,7 +351,7 @@ async def chat(request: ChatRequest) -> ChatResponse:
 
 ---
 
-## 9. Pydantic Settings — la configuration typée
+## 9. Pydantic Settings - la configuration typée
 
 **Version** : v2
 
@@ -372,13 +372,13 @@ Si `LLM_PROVIDER=openai` dans le `.env` → **erreur au démarrage**, pas en pro
 
 ---
 
-## 10. React 18 + Vite — le frontend
+## 10. React 18 + Vite - le frontend
 
 **React version** : 18 | **Bundler** : Vite
 
 ### Pourquoi React 18 ?
 
-- **Hooks** : `useState`, `useEffect`, hooks custom (`useChat`, `useUpload`) — logique métier découplée du rendering
+- **Hooks** : `useState`, `useEffect`, hooks custom (`useChat`, `useUpload`) - logique métier découplée du rendering
 - **Standard industrie** : ce que les recruteurs attendent de voir en 2024-2025
 - **Composants fonctionnels** : plus lisibles, testables
 
@@ -399,7 +399,7 @@ Si `LLM_PROVIDER=openai` dans le `.env` → **erreur au démarrage**, pas en pro
 
 ---
 
-## 11. TailwindCSS — le styling
+## 11. TailwindCSS - le styling
 
 **Version** : 3
 
@@ -426,7 +426,7 @@ Tailwind est un framework CSS **utility-first** : au lieu d'écrire du CSS, on c
 
 ---
 
-## 12. PyMuPDF — parsing de PDF
+## 12. PyMuPDF - parsing de PDF
 
 **Package Python** : `fitz` (nom d'import de PyMuPDF)
 **Version** : 1.24+
@@ -446,7 +446,7 @@ PyMuPDF est la librairie de parsing PDF la plus rapide disponible en Python. Ell
 
 ---
 
-## 13. Récapitulatif — tableau des alternatives
+## 13. Récapitulatif - tableau des alternatives
 
 | Composant | Choix dans ce projet | Alternative principale | Pourquoi notre choix |
 |---|---|---|---|
@@ -465,4 +465,4 @@ PyMuPDF est la librairie de parsing PDF la plus rapide disponible en Python. Ell
 
 ---
 
-*Ce document fait partie du projet Smart Doc Assistant — portfolio technique IA par Alexis MASSOL.*
+*Ce document fait partie du projet Smart Doc Assistant - portfolio technique IA par Alexis MASSOL.*

@@ -1,5 +1,5 @@
 /**
- * StatusBar — Barre de statut en haut de l'interface
+ * StatusBar - Barre de statut en haut de l'interface
  * Affiche : LLM actif | docs indexés | dernière latence
  */
 export default function StatusBar({ llmProvider, documentsCount, latency }) {
@@ -7,7 +7,7 @@ export default function StatusBar({ llmProvider, documentsCount, latency }) {
     ollama: '⚡ Ollama local',
     mistral: '🌐 Mistral API',
     anthropic: '🤖 Claude',
-  }[llmProvider] || '— Connexion...'
+  }[llmProvider] || '- Connexion...'
 
   return (
     <div className="flex items-center justify-between px-6 py-2.5 border-b border-border bg-surface/50 backdrop-blur-sm">

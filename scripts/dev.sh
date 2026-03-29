@@ -1,5 +1,5 @@
 #!/bin/bash
-# dev.sh — Lance backend FastAPI + frontend React en parallèle
+# dev.sh - Lance backend FastAPI + frontend React en parallèle
 # Backend sur port 8000, Frontend sur port 5173
 # Usage : npm run dev
 
@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
 echo "╔══════════════════════════════════════════════╗"
-echo "║     Smart Doc Assistant — npm run dev         ║"
+echo "║     Smart Doc Assistant - npm run dev         ║"
 echo "╚══════════════════════════════════════════════╝"
 echo ""
 echo "   Backend → http://localhost:8000"

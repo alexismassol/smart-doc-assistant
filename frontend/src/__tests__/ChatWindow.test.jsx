@@ -1,5 +1,5 @@
 /**
- * ChatWindow.test.jsx — Tests unitaires du composant ChatWindow
+ * ChatWindow.test.jsx - Tests unitaires du composant ChatWindow
  * Uses: Vitest, React Testing Library, userEvent
  *
  * Matrice de conformité :
@@ -26,7 +26,7 @@ beforeEach(() => {
   vi.clearAllMocks()
 })
 
-describe('ChatWindow — état vide', () => {
+describe('ChatWindow - état vide', () => {
   it('affiche l\'EmptyState quand messages est vide', () => {
     render(<ChatWindow {...defaultProps} />)
     expect(screen.getByText('Smart Doc Assistant')).toBeInTheDocument()
@@ -48,7 +48,7 @@ describe('ChatWindow — état vide', () => {
   })
 })
 
-describe('ChatWindow — envoi de message', () => {
+describe('ChatWindow - envoi de message', () => {
   it('appelle onSend avec le texte de l\'input', async () => {
     const user = userEvent.setup()
     render(<ChatWindow {...defaultProps} />)
@@ -68,7 +68,7 @@ describe('ChatWindow — envoi de message', () => {
   })
 })
 
-describe('ChatWindow — bornes (inputs invalides)', () => {
+describe('ChatWindow - bornes (inputs invalides)', () => {
   it('input vide → onSend non appelé', async () => {
     const user = userEvent.setup()
     render(<ChatWindow {...defaultProps} />)
@@ -97,7 +97,7 @@ describe('ChatWindow — bornes (inputs invalides)', () => {
   })
 })
 
-describe('ChatWindow — avec messages', () => {
+describe('ChatWindow - avec messages', () => {
   const messages = [
     { role: 'user', content: 'Question test', id: 1 },
     { role: 'assistant', content: 'Réponse test', sources: [], confidence: 0.8, latency_ms: 500, id: 2 },
@@ -127,12 +127,12 @@ describe('ChatWindow — avec messages', () => {
   })
 })
 
-describe('ChatWindow — état chargement', () => {
+describe('ChatWindow - état chargement', () => {
   const messages = [{ role: 'user', content: 'Question', id: 1 }]
 
   it('bouton submit désactivé pendant le chargement', () => {
     render(<ChatWindow {...defaultProps} messages={messages} isLoading={true} />)
-    // Input a du texte via state — on vérifie le submit button directement
+    // Input a du texte via state - on vérifie le submit button directement
     const button = screen.getByRole('button', { name: '' }) // Le bouton submit sans texte
     // Il doit être disabled quand input est vide (state initial)
     expect(button).toBeDisabled()

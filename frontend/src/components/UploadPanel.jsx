@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 
 /**
- * UploadPanel — Panneau gauche : drag & drop + liste des documents + historique conversations
+ * UploadPanel - Panneau gauche : drag & drop + liste des documents + historique conversations
  * Sur mobile : collapsible via header cliquable
  */
 export default function UploadPanel({ documents, isUploading, onUploadFile, onIngestUrl, onDeleteDoc, onLoadSession, activeSessionId }) {
@@ -29,7 +29,7 @@ export default function UploadPanel({ documents, isUploading, onUploadFile, onIn
     if (!file) return
     const result = await onUploadFile(file)
     if (result.success) {
-      showFeedback('success', `${file.name} — ${result.chunks} chunks indexés`)
+      showFeedback('success', `${file.name} - ${result.chunks} chunks indexés`)
     } else {
       showFeedback('error', result.error)
     }
@@ -47,7 +47,7 @@ export default function UploadPanel({ documents, isUploading, onUploadFile, onIn
     if (!urlInput.trim()) return
     const result = await onIngestUrl(urlInput.trim())
     if (result.success) {
-      showFeedback('success', `URL indexée — ${result.chunks} chunks`)
+      showFeedback('success', `URL indexée - ${result.chunks} chunks`)
       setUrlInput('')
     } else {
       showFeedback('error', result.error)
@@ -56,7 +56,7 @@ export default function UploadPanel({ documents, isUploading, onUploadFile, onIn
 
   return (
     <aside className={`w-full md:w-80 flex-none flex flex-col border-b md:border-b-0 md:border-r border-border bg-surface/30 overflow-hidden transition-all duration-200 ${mobileOpen ? 'flex-1' : 'h-auto'} md:flex-1 md:h-auto`}>
-      {/* Header — cliquable sur mobile pour expand/collapse */}
+      {/* Header - cliquable sur mobile pour expand/collapse */}
       <div className="px-5 pt-5 pb-4">
         <button
           className="w-full flex items-center justify-between mb-4 md:cursor-default"
@@ -151,7 +151,7 @@ export default function UploadPanel({ documents, isUploading, onUploadFile, onIn
         </div>{/* fin contenu mobile collapsible */}
       </div>
 
-      {/* Zone scrollable : documents + conversations — masquée sur mobile si collapsed */}
+      {/* Zone scrollable : documents + conversations - masquée sur mobile si collapsed */}
       <div className={`overflow-y-auto flex-1 px-5 pb-5 ${mobileOpen ? 'block' : 'hidden'} md:block`}>
 
         {/* Liste des documents */}

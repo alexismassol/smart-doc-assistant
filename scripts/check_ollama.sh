@@ -1,11 +1,11 @@
 #!/bin/bash
-# check_ollama.sh — Vérifie que Ollama est installé et que les modèles requis sont présents
+# check_ollama.sh - Vérifie que Ollama est installé et que les modèles requis sont présents
 # Modèles requis : mistral (LLM), nomic-embed-text (embeddings)
 
 set -e
 
 echo "╔══════════════════════════════════════════════╗"
-echo "║    Smart Doc Assistant — Vérification Ollama  ║"
+echo "║    Smart Doc Assistant - Vérification Ollama  ║"
 echo "╚══════════════════════════════════════════════╝"
 echo ""
 
@@ -17,7 +17,7 @@ if ! command -v ollama &> /dev/null; then
     echo ""
     case "$(uname -s)" in
         Darwin)
-            echo "    macOS — Télécharger et installer le .dmg :"
+            echo "    macOS - Télécharger et installer le .dmg :"
             echo "    https://ollama.ai/download/mac"
             echo ""
             echo "    Ou via Homebrew : brew install ollama"
@@ -27,7 +27,7 @@ if ! command -v ollama &> /dev/null; then
             echo "    curl -fsSL https://ollama.ai/install.sh | sh"
             ;;
         MINGW*|MSYS*|CYGWIN*)
-            echo "    Windows — Télécharger l'installeur .exe :"
+            echo "    Windows - Télécharger l'installeur .exe :"
             echo "    https://ollama.ai/download/windows"
             echo ""
             echo "    Note : WSL2 recommandé pour de meilleures performances"
@@ -54,7 +54,7 @@ echo "✅  Serveur Ollama actif sur localhost:11434"
 if ollama list | grep -q "mistral"; then
     echo "✅  Modèle mistral présent"
 else
-    echo "⚠️   Modèle mistral absent — téléchargement en cours..."
+    echo "⚠️   Modèle mistral absent - téléchargement en cours..."
     ollama pull mistral
     echo "✅  Modèle mistral téléchargé"
 fi
@@ -63,7 +63,7 @@ fi
 if ollama list | grep -q "nomic-embed-text"; then
     echo "✅  Modèle nomic-embed-text présent"
 else
-    echo "⚠️   Modèle nomic-embed-text absent — téléchargement en cours..."
+    echo "⚠️   Modèle nomic-embed-text absent - téléchargement en cours..."
     ollama pull nomic-embed-text
     echo "✅  Modèle nomic-embed-text téléchargé"
 fi

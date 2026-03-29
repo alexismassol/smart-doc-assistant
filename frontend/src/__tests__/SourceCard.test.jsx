@@ -1,5 +1,5 @@
 /**
- * SourceCard.test.jsx — Tests unitaires du composant SourceCard
+ * SourceCard.test.jsx - Tests unitaires du composant SourceCard
  * Uses: Vitest, React Testing Library
  *
  * Matrice de conformité :
@@ -20,7 +20,7 @@ const makeSource = (overrides = {}) => ({
   ...overrides,
 })
 
-describe('SourceCard — nominal', () => {
+describe('SourceCard - nominal', () => {
   it('affiche le nom de la source', () => {
     render(<SourceCard source={makeSource()} />)
     expect(screen.getByText('api-doc.pdf')).toBeInTheDocument()
@@ -42,7 +42,7 @@ describe('SourceCard — nominal', () => {
   })
 })
 
-describe('SourceCard — bornes (scores)', () => {
+describe('SourceCard - bornes (scores)', () => {
   it('score >= 0.75 → classe score-high', () => {
     const { container } = render(<SourceCard source={makeSource({ score: 0.75 })} />)
     expect(container.querySelector('.score-high')).toBeInTheDocument()
@@ -69,7 +69,7 @@ describe('SourceCard — bornes (scores)', () => {
   })
 })
 
-describe('SourceCard — page', () => {
+describe('SourceCard - page', () => {
   it('ne montre pas la page si page = 0', () => {
     render(<SourceCard source={makeSource({ page: 0 })} />)
     expect(screen.queryByText(/p\.\d/)).not.toBeInTheDocument()
@@ -83,7 +83,7 @@ describe('SourceCard — page', () => {
   })
 })
 
-describe('SourceCard — types (icônes)', () => {
+describe('SourceCard - types (icônes)', () => {
   it.each([
     ['pdf', '📄'],
     ['csv', '📊'],

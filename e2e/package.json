@@ -2,7 +2,7 @@
   "name": "smart-doc-assistant-e2e",
   "version": "1.0.0",
   "type": "module",
-  "description": "Tests E2E Playwright — Smart Doc Assistant",
+  "description": "Tests E2E Playwright - Smart Doc Assistant",
   "devDependencies": {
     "@playwright/test": "^1.48.2"
   },

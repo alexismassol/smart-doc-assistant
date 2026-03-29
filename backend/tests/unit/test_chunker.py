@@ -1,5 +1,5 @@
 """
-test_chunker.py — Tests unitaires pour ingest/chunker.py
+test_chunker.py - Tests unitaires pour ingest/chunker.py
 TDD Phase Red : définit le contrat du text splitter LangChain.
 Uses: pytest, LangChain Document, RecursiveCharacterTextSplitter
 """

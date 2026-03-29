@@ -1,5 +1,5 @@
 """
-loader.py — Document loaders pour le pipeline d'ingestion
+loader.py - Document loaders pour le pipeline d'ingestion
 Uses: LangChain (UnstructuredMarkdownLoader, CSVLoader, PyMuPDFLoader),
       httpx (HTTP async), BeautifulSoup4 (HTML parsing)
 Formats supportés : PDF, CSV, Markdown, URL
@@ -30,7 +30,7 @@ def load_pdf(file_path: str) -> List[Document]:
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"PDF introuvable : {file_path}")
 
-    # LangChain PyMuPDFLoader — parsing rapide avec métadonnées de page
+    # LangChain PyMuPDFLoader - parsing rapide avec métadonnées de page
     loader = PyMuPDFLoader(file_path)
     docs = loader.load()
 
@@ -60,7 +60,7 @@ def load_csv(file_path: str) -> List[Document]:
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"CSV introuvable : {file_path}")
 
-    # LangChain CSVLoader — chaque ligne → un Document
+    # LangChain CSVLoader - chaque ligne → un Document
     loader = CSVLoader(file_path=file_path)
     docs = loader.load()
 
@@ -122,13 +122,13 @@ def load_url(url: str, timeout: int = 15) -> List[Document]:
         ValueError: Si la requête HTTP échoue.
     """
     try:
-        # httpx — client HTTP moderne, async-compatible
+        # httpx - client HTTP moderne, async-compatible
         response = httpx.get(url, timeout=timeout, follow_redirects=True)
         response.raise_for_status()
     except Exception as e:
         raise ValueError(f"Impossible de charger l'URL {url} : {e}")
 
-    # BeautifulSoup4 — extraction du texte visible uniquement
+    # BeautifulSoup4 - extraction du texte visible uniquement
     soup = BeautifulSoup(response.text, "lxml")
 
     # Supprime les scripts et styles
@@ -153,7 +153,7 @@ def load_url(url: str, timeout: int = 15) -> List[Document]:
 
 def load_document(file_path: str) -> List[Document]:
     """
-    Point d'entrée unifié — détecte le format et dispatch vers le bon loader.
+    Point d'entrée unifié - détecte le format et dispatch vers le bon loader.
 
     Args:
         file_path: Chemin vers le fichier (PDF, CSV, MD, TXT).

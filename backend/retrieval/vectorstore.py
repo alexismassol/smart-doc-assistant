@@ -1,5 +1,5 @@
 """
-vectorstore.py — Client ChromaDB persistant pour Smart Doc Assistant
+vectorstore.py - Client ChromaDB persistant pour Smart Doc Assistant
 Uses: ChromaDB (PersistentClient, collection cosinus), Pydantic Settings v2
 Fournit : accès collection, comptage, suppression, listing des sources.
 """
@@ -17,7 +17,7 @@ def get_collection(
     """
     Retourne la collection ChromaDB configurée (crée si inexistante).
 
-    Utilise la similarité cosinus pour le calcul de distance — standard
+    Utilise la similarité cosinus pour le calcul de distance - standard
     pour les modèles d'embedding de texte (nomic-embed-text dim 768).
 
     Args:
@@ -30,7 +30,7 @@ def get_collection(
     col_name = collection_name or settings.chroma_collection
     path = chroma_path or settings.chroma_persist_dir
 
-    # ChromaDB PersistentClient — données survivent aux redémarrages
+    # ChromaDB PersistentClient - données survivent aux redémarrages
     client = chromadb.PersistentClient(path=path)
 
     collection = client.get_or_create_collection(
@@ -99,7 +99,7 @@ def list_sources(
     """
     Liste les documents uniques indexés dans ChromaDB.
 
-    Déduplique par nom de source — retourne une entrée par document,
+    Déduplique par nom de source - retourne une entrée par document,
     pas par chunk.
 
     Args:

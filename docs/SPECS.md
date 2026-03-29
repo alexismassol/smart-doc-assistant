@@ -1,4 +1,4 @@
-# SPECS.md — Smart Doc Assistant
+# SPECS.md - Smart Doc Assistant
 
 ## Vision produit
 
@@ -10,7 +10,7 @@
 
 ## Spécifications fonctionnelles
 
-### SF-01 — Ingestion de documents
+### SF-01 - Ingestion de documents
 
 | ID | Fonctionnalité | Priorité |
 |---|---|---|
@@ -29,7 +29,7 @@
 
 ---
 
-### SF-02 — Conversation avec l'agent
+### SF-02 - Conversation avec l'agent
 
 | ID | Fonctionnalité | Priorité |
 |---|---|---|
@@ -44,12 +44,12 @@
 
 **Règles métier :**
 - Si aucun document n'est ingéré, l'agent répond : *"Aucun document chargé. Veuillez d'abord uploader des fichiers."*
-- Si les documents ne contiennent pas de réponse, l'agent le dit explicitement — il n'invente pas
+- Si les documents ne contiennent pas de réponse, l'agent le dit explicitement - il n'invente pas
 - Le contexte de conversation est conservé sur les 5 derniers échanges
 
 ---
 
-### SF-03 — Interface utilisateur
+### SF-03 - Interface utilisateur
 
 | ID | Fonctionnalité | Priorité |
 |---|---|---|
@@ -63,7 +63,7 @@
 
 ## Spécifications techniques
 
-### ST-01 — Pipeline d'ingestion (backend)
+### ST-01 - Pipeline d'ingestion (backend)
 
 ```
 [Fichier / URL]
@@ -89,7 +89,7 @@
 
 ---
 
-### ST-02 — Agent LangGraph
+### ST-02 - Agent LangGraph
 
 #### State (TypedDict)
 
@@ -139,7 +139,7 @@ Historique de conversation :
 
 ---
 
-### ST-03 — API FastAPI
+### ST-03 - API FastAPI
 
 #### Endpoints
 
@@ -148,9 +148,9 @@ Historique de conversation :
 | POST | `/api/chat` | Envoie une question, reçoit réponse + sources | `{question, session_id}` |
 | POST | `/api/upload` | Upload d'un fichier | `multipart/form-data` |
 | POST | `/api/ingest-url` | Ingestion d'une URL | `{url}` |
-| GET | `/api/documents` | Liste les docs ingérés | — |
-| DELETE | `/api/documents/{id}` | Supprime un doc | — |
-| GET | `/api/health` | Santé de l'API | — |
+| GET | `/api/documents` | Liste les docs ingérés | - |
+| DELETE | `/api/documents/{id}` | Supprime un doc | - |
+| GET | `/api/health` | Santé de l'API | - |
 
 #### Réponse type `/api/chat`
 
@@ -172,7 +172,7 @@ Historique de conversation :
 
 ---
 
-### ST-04 — Frontend React
+### ST-04 - Frontend React
 
 #### Composants
 
@@ -200,7 +200,7 @@ const { documents, uploadFile, ingestUrl, deleteDoc, isUploading } = useUpload()
 
 ---
 
-### ST-05 — Configuration LLM (switchable)
+### ST-05 - Configuration LLM (switchable)
 
 ```python
 # config.py

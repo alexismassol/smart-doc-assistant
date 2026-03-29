@@ -1,5 +1,5 @@
 /**
- * playwright.config.js — Configuration Playwright pour les tests E2E
+ * playwright.config.js - Configuration Playwright pour les tests E2E
  * Uses: Playwright Test (chromium headless), serveurs backend + frontend locaux
  *
  * Les tests E2E requièrent que backend (port 8000) et frontend (port 5173)
@@ -29,6 +29,6 @@ export default defineConfig({
     },
   ],
 
-  // Pas de webServer ici — on suppose que dev.sh est déjà lancé
+  // Pas de webServer ici - on suppose que dev.sh est déjà lancé
   // Pour les tests CI : `npm run dev &` puis `npm run test:e2e`
 })

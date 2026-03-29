@@ -1,4 +1,4 @@
-# 📚 Tutorial technique — Smart Doc Assistant
+# 📚 Tutorial technique - Smart Doc Assistant
 
 > Explication du code réel du projet, brique par brique. Comment chaque partie fonctionne, pourquoi on l'a codée comme ça, et où la trouver dans le repo.
 
@@ -6,14 +6,14 @@
 
 ## Sommaire
 
-1. [Pipeline d'ingestion — `backend/ingest/`](#1-pipeline-dingestion)
-2. [Base vectorielle ChromaDB — `backend/retrieval/`](#2-base-vectorielle-chromadb)
-3. [Agent LangGraph — `backend/agent/`](#3-agent-langgraph)
-4. [Backend FastAPI — `backend/api/`](#4-backend-fastapi)
-5. [Streaming SSE — token par token](#5-streaming-sse)
-6. [Configuration LLM — `backend/config.py`](#6-configuration-llm)
-7. [Hooks React — `frontend/src/hooks/`](#7-hooks-react)
-8. [Composants UI — `frontend/src/components/`](#8-composants-ui)
+1. [Pipeline d'ingestion - `backend/ingest/`](#1-pipeline-dingestion)
+2. [Base vectorielle ChromaDB - `backend/retrieval/`](#2-base-vectorielle-chromadb)
+3. [Agent LangGraph - `backend/agent/`](#3-agent-langgraph)
+4. [Backend FastAPI - `backend/api/`](#4-backend-fastapi)
+5. [Streaming SSE - token par token](#5-streaming-sse)
+6. [Configuration LLM - `backend/config.py`](#6-configuration-llm)
+7. [Hooks React - `frontend/src/hooks/`](#7-hooks-react)
+8. [Composants UI - `frontend/src/components/`](#8-composants-ui)
 
 ---
 
@@ -21,7 +21,7 @@
 
 **Fichiers :** `backend/ingest/loader.py`, `chunker.py`, `embedder.py`
 
-### Loader — lire les documents
+### Loader - lire les documents
 
 Le loader unifie tous les formats en une liste de `Document` LangChain.
 
@@ -63,7 +63,7 @@ Document(
 
 ---
 
-### Chunker — découper le texte
+### Chunker - découper le texte
 
 ```python
 # backend/ingest/chunker.py
@@ -78,13 +78,13 @@ def split_documents(documents: list[Document]) -> list[Document]:
     return splitter.split_documents(documents)
 ```
 
-**Pourquoi `overlap=50` ?** Si une info importante est à cheval sur la fin du chunk 3 et le début du chunk 4, l'overlap garantit qu'elle apparaît dans les deux — on ne la rate pas à la recherche.
+**Pourquoi `overlap=50` ?** Si une info importante est à cheval sur la fin du chunk 3 et le début du chunk 4, l'overlap garantit qu'elle apparaît dans les deux - on ne la rate pas à la recherche.
 
-**Pourquoi `RecursiveCharacterTextSplitter` ?** Il essaie de couper d'abord sur `\n\n` (paragraphes), puis `\n` (lignes), puis `.` (phrases), puis espace — jamais au milieu d'un mot. Le texte reste lisible.
+**Pourquoi `RecursiveCharacterTextSplitter` ?** Il essaie de couper d'abord sur `\n\n` (paragraphes), puis `\n` (lignes), puis `.` (phrases), puis espace - jamais au milieu d'un mot. Le texte reste lisible.
 
 ---
 
-### Embedder — vectoriser et stocker
+### Embedder - vectoriser et stocker
 
 ```python
 # backend/ingest/embedder.py
@@ -128,7 +128,7 @@ def embed_and_store(chunks: list[Document], source_name: str) -> int:
 import chromadb
 
 def get_collection():
-    # Mode persistant — les données survivent au redémarrage
+    # Mode persistant - les données survivent au redémarrage
     client = chromadb.PersistentClient(path=settings.chroma_persist_dir)
     return client.get_or_create_collection(
         name=settings.chroma_collection,   # "smart_docs"
@@ -140,7 +140,7 @@ Les données sont stockées dans `./data/chroma_db/` sur le disque. En relançan
 
 ---
 
-### Retriever — recherche sémantique
+### Retriever - recherche sémantique
 
 ```python
 # backend/retrieval/retriever.py
@@ -201,7 +201,7 @@ class AgentState(TypedDict):
     session_id: str    # UUID de session
 ```
 
-LangGraph passe cet état de nœud en nœud. Chaque nœud retourne **uniquement les clés qu'il modifie** — les autres restent inchangées.
+LangGraph passe cet état de nœud en nœud. Chaque nœud retourne **uniquement les clés qu'il modifie** - les autres restent inchangées.
 
 ---
 
@@ -211,21 +211,21 @@ LangGraph passe cet état de nœud en nœud. Chaque nœud retourne **uniquement 
 # backend/agent/nodes.py
 
 def retrieve_node(state: AgentState) -> dict:
-    """Nœud 1 — Chercher les documents pertinents dans ChromaDB"""
+    """Nœud 1 - Chercher les documents pertinents dans ChromaDB"""
     results, confidence = retrieve_with_confidence(state["question"])
     return {"context": results, "confidence": confidence}
     # → passe le résultat au nœud suivant via l'état
 
 
 def memory_node(state: AgentState) -> dict:
-    """Nœud 2 — Limiter l'historique aux 5 derniers échanges"""
+    """Nœud 2 - Limiter l'historique aux 5 derniers échanges"""
     windowed = apply_sliding_window(state["history"], window=settings.memory_window)
     return {"history": windowed}
     # → évite un contexte LLM trop long
 
 
 def generate_node(state: AgentState) -> dict:
-    """Nœud 3 — Générer la réponse avec le LLM"""
+    """Nœud 3 - Générer la réponse avec le LLM"""
     from langchain_core.messages import SystemMessage, HumanMessage
 
     # Construction du contexte documentaire pour le prompt
@@ -239,7 +239,7 @@ def generate_node(state: AgentState) -> dict:
         HumanMessage(content=f"Contexte:\n{context_str}\n\nQuestion: {state['question']}"),
     ]
 
-    # Appel LLM — le provider dépend de .env (ollama / mistral / anthropic)
+    # Appel LLM - le provider dépend de .env (ollama / mistral / anthropic)
     llm = settings.get_llm()
     response = llm.invoke(messages)
 
@@ -248,7 +248,7 @@ def generate_node(state: AgentState) -> dict:
 
 ---
 
-### Le graph — assemblage des nœuds
+### Le graph - assemblage des nœuds
 
 ```python
 # backend/agent/graph.py
@@ -284,7 +284,7 @@ graph.add_conditional_edges(
 
 ---
 
-### Mémoire — fenêtre glissante
+### Mémoire - fenêtre glissante
 
 ```python
 # backend/agent/memory.py
@@ -309,7 +309,7 @@ def format_history_for_prompt(history: list) -> str:
 
 **Fichiers :** `backend/main.py`, `backend/api/routes_chat.py`, `routes_ingest.py`
 
-### Démarrage — lifespan
+### Démarrage - lifespan
 
 ```python
 # backend/main.py
@@ -320,7 +320,7 @@ async def lifespan(app: FastAPI):
     try:
         collection = get_collection()
         count = collection.count()
-        logger.info(f"ChromaDB connecté — {count} chunks dans '{settings.chroma_collection}'")
+        logger.info(f"ChromaDB connecté - {count} chunks dans '{settings.chroma_collection}'")
     except Exception as e:
         logger.warning(f"ChromaDB non disponible : {e}")
     yield
@@ -394,7 +394,7 @@ async def chat(request: ChatRequest):
 
 **Fichiers :** `backend/api/routes_chat.py` (route `/api/chat/stream`), `frontend/src/hooks/useChat.js`
 
-### Côté backend — StreamingResponse
+### Côté backend - StreamingResponse
 
 ```python
 # backend/api/routes_chat.py
@@ -404,7 +404,7 @@ async def chat_stream(request: ChatRequest):
     async def generate():
         start_time = time.time()
 
-        # 1. Retrieval synchrone (rapide — juste une requête ChromaDB)
+        # 1. Retrieval synchrone (rapide - juste une requête ChromaDB)
         results, confidence = retrieve_with_confidence(request.question)
 
         # 2. Construction du prompt
@@ -428,13 +428,13 @@ async def chat_stream(request: ChatRequest):
 ```
 
 Les 3 types d'événements SSE :
-- `token` — un morceau de texte à afficher immédiatement
-- `sources` — chunks sources + confidence (envoyé une seule fois, à la fin)
-- `done` — fermer le stream
+- `token` - un morceau de texte à afficher immédiatement
+- `sources` - chunks sources + confidence (envoyé une seule fois, à la fin)
+- `done` - fermer le stream
 
 ---
 
-### Côté frontend — ReadableStream
+### Côté frontend - ReadableStream
 
 ```javascript
 // frontend/src/hooks/useChat.js
@@ -504,7 +504,7 @@ while (true) {
 **Fichier :** `backend/config.py`
 
 ```python
-# backend/config.py — Pydantic Settings v2
+# backend/config.py - Pydantic Settings v2
 
 class Settings(BaseSettings):
     # Provider LLM : "ollama" | "mistral" | "anthropic"
@@ -530,7 +530,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env")
 
     def get_llm(self):
-        """Factory LLM — retourne le bon client selon LLM_PROVIDER dans .env"""
+        """Factory LLM - retourne le bon client selon LLM_PROVIDER dans .env"""
         if self.llm_provider == "ollama":
             return ChatOllama(
                 base_url=self.ollama_base_url,
@@ -548,7 +548,7 @@ class Settings(BaseSettings):
             )
         raise ValueError(f"Provider inconnu : {self.llm_provider}")
 
-settings = Settings()  # Singleton — lu une seule fois au démarrage
+settings = Settings()  # Singleton - lu une seule fois au démarrage
 ```
 
 Changer de LLM = modifier `.env` uniquement. Le reste du code appelle `settings.get_llm()` sans savoir quel provider est utilisé.
@@ -559,7 +559,7 @@ Changer de LLM = modifier `.env` uniquement. Le reste du code appelle `settings.
 
 **Fichiers :** `frontend/src/hooks/useChat.js`, `useUpload.js`
 
-### useChat — gestion de la conversation
+### useChat - gestion de la conversation
 
 ```javascript
 // frontend/src/hooks/useChat.js
@@ -593,11 +593,11 @@ export function useChat() {
 
 **Pourquoi `useCallback` ?** Évite de recréer la fonction `sendMessage` à chaque render. Sans ça, si `sendMessage` est passé en prop à un composant enfant, il provoquerait un re-render inutile à chaque keystroke.
 
-**Pourquoi `sessionId` sans setter ?** `useState(() => crypto.randomUUID())` — l'initializer est appelé une seule fois. L'UUID reste stable pendant toute la session, même si le composant re-render.
+**Pourquoi `sessionId` sans setter ?** `useState(() => crypto.randomUUID())` - l'initializer est appelé une seule fois. L'UUID reste stable pendant toute la session, même si le composant re-render.
 
 ---
 
-### useUpload — gestion des fichiers
+### useUpload - gestion des fichiers
 
 ```javascript
 // frontend/src/hooks/useUpload.js
@@ -640,7 +640,7 @@ export function useUpload() {
 
 **Fichiers :** `frontend/src/components/`
 
-### MessageBubble — bulles de conversation
+### MessageBubble - bulles de conversation
 
 ```jsx
 // frontend/src/components/MessageBubble.jsx
@@ -666,7 +666,7 @@ export default function MessageBubble({ message }) {
                     <span className="inline-block w-0.5 h-4 bg-accent animate-pulse" />
                 )}
 
-                {/* Bouton copier — visible au hover, uniquement quand réponse terminée */}
+                {/* Bouton copier - visible au hover, uniquement quand réponse terminée */}
                 {!isUser && !message.isStreaming && (
                     <button
                         onClick={handleCopy}
@@ -688,11 +688,11 @@ export default function MessageBubble({ message }) {
 }
 ```
 
-**`group` + `group-hover:opacity-100`** — pattern Tailwind pour afficher un bouton au survol du parent. Le bouton est `opacity-0` par défaut et devient visible quand la souris survole la bulle.
+**`group` + `group-hover:opacity-100`** - pattern Tailwind pour afficher un bouton au survol du parent. Le bouton est `opacity-0` par défaut et devient visible quand la souris survole la bulle.
 
 ---
 
-### UploadPanel — collapsible sur mobile
+### UploadPanel - collapsible sur mobile
 
 ```jsx
 // frontend/src/components/UploadPanel.jsx
@@ -730,7 +730,7 @@ export default function UploadPanel({ ... }) {
 
 ---
 
-### StatusBar — métriques en temps réel
+### StatusBar - métriques en temps réel
 
 ```jsx
 // frontend/src/components/StatusBar.jsx
@@ -741,7 +741,7 @@ export default function StatusBar({ llmProvider, documentsCount, latency }) {
         ollama: '⚡ Ollama local',
         mistral: '🌐 Mistral API',
         anthropic: '🤖 Claude',
-    }[llmProvider] || '— Connexion...'
+    }[llmProvider] || '- Connexion...'
 
     return (
         <div className="flex items-center justify-between px-6 py-2.5 border-b">
@@ -761,9 +761,9 @@ export default function StatusBar({ llmProvider, documentsCount, latency }) {
 }
 ```
 
-`llmProvider` vient d'un appel `GET /api/health` dans `App.jsx` — il reflète ce qui est configuré dans `.env` côté backend.
+`llmProvider` vient d'un appel `GET /api/health` dans `App.jsx` - il reflète ce qui est configuré dans `.env` côté backend.
 
 ---
 
-*Smart Doc Assistant — Portfolio Alexis MASSOL*
+*Smart Doc Assistant - Portfolio Alexis MASSOL*
 *LangGraph · LangChain · Mistral · ChromaDB · FastAPI · React 18 · Ollama*

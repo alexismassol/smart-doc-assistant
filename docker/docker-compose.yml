@@ -1,15 +1,15 @@
 # ═══════════════════════════════════════════════════════════════════════════════
-# docker-compose.yml — Smart Doc Assistant
+# docker-compose.yml - Smart Doc Assistant
 # ═══════════════════════════════════════════════════════════════════════════════
 #
 # Services :
-#   backend  — FastAPI + Uvicorn (Python 3.11) → port 8000
-#   frontend — React 18 + Nginx              → port 80
-#   ollama   — Serveur Ollama local           → port 11434
+#   backend  - FastAPI + Uvicorn (Python 3.11) → port 8000
+#   frontend - React 18 + Nginx              → port 80
+#   ollama   - Serveur Ollama local           → port 11434
 #
 # Volumes persistants :
-#   smart-data     — ChromaDB + SQLite history (data/)
-#   ollama-models  — Modèles Ollama téléchargés (évite de re-télécharger)
+#   smart-data     - ChromaDB + SQLite history (data/)
+#   ollama-models  - Modèles Ollama téléchargés (évite de re-télécharger)
 #
 # Usage :
 #   npm run docker:start           → build + lance (interactif)
@@ -29,7 +29,7 @@ services:
     # Port 8000 accessible uniquement via Nginx (réseau Docker interne)
     # Décommenter pour debug direct : - "${BACKEND_PORT:-8000}:8000"
     volumes:
-      # Persistance ChromaDB et SQLite history — survie aux redémarrages
+      # Persistance ChromaDB et SQLite history - survie aux redémarrages
       - smart-data:/app/data
     env_file:
       - ../.env
@@ -69,7 +69,7 @@ services:
     ports:
       - "11434:11434"
     volumes:
-      # Modèles persistants — évite de re-télécharger à chaque rebuild
+      # Modèles persistants - évite de re-télécharger à chaque rebuild
       - ollama-models:/root/.ollama
     restart: unless-stopped
     networks:

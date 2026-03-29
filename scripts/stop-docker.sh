@@ -1,6 +1,6 @@
 #!/bin/bash
 # ═══════════════════════════════════════════════════════════════════════════════
-# stop-docker.sh — Arrêt Docker de Smart Doc Assistant
+# stop-docker.sh - Arrêt Docker de Smart Doc Assistant
 # ═══════════════════════════════════════════════════════════════════════════════
 #
 # Usage : ./scripts/stop-docker.sh [OPTIONS]
@@ -25,7 +25,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 
 echo ""
-echo "🛑 Smart Doc Assistant — Arrêt Docker"
+echo "🛑 Smart Doc Assistant - Arrêt Docker"
 echo "════════════════════════════════════"
 echo ""
 
@@ -49,7 +49,7 @@ if [ "$RUNNING" -gt 0 ]; then
       docker compose down --rmi local
       ;;
     --volumes)
-      echo "   ⚠️  Suppression des volumes (--volumes) — ChromaDB + SQLite effacés !"
+      echo "   ⚠️  Suppression des volumes (--volumes) - ChromaDB + SQLite effacés !"
       docker compose down --volumes
       ;;
     --all)

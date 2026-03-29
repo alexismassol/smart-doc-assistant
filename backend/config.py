@@ -1,5 +1,5 @@
 """
-config.py — Configuration centralisée Smart Doc Assistant
+config.py - Configuration centralisée Smart Doc Assistant
 Uses: Pydantic Settings v2 (validation .env typée), python-dotenv
 Gère : LLM provider switchable (ollama | mistral | anthropic), ChromaDB, agent params.
 """
@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     # ── LLM Provider ──────────────────────────────────────────────────────────
     llm_provider: Literal["ollama", "mistral", "anthropic"] = "ollama"
 
-    # Ollama (local, dev — gratuit, offline)
+    # Ollama (local, dev - gratuit, offline)
     ollama_base_url: str = "http://localhost:11434"
     ollama_model: str = "mistral"
 
@@ -67,7 +67,7 @@ class Settings(BaseSettings):
             ValueError: si la clé API requise est absente.
         """
         if self.llm_provider == "ollama":
-            # LangChain + Ollama — inférence locale Mistral 7B
+            # LangChain + Ollama - inférence locale Mistral 7B
             from langchain_ollama import ChatOllama
             return ChatOllama(
                 model=self.ollama_model,
@@ -75,7 +75,7 @@ class Settings(BaseSettings):
             )
 
         elif self.llm_provider == "mistral":
-            # LangChain + Mistral API — mistral-small-latest
+            # LangChain + Mistral API - mistral-small-latest
             if not self.mistral_api_key:
                 raise ValueError(
                     "MISTRAL_API_KEY est requis quand LLM_PROVIDER=mistral. "
@@ -88,7 +88,7 @@ class Settings(BaseSettings):
             )
 
         elif self.llm_provider == "anthropic":
-            # LangChain + Anthropic — Claude Haiku (démo multi-provider)
+            # LangChain + Anthropic - Claude Haiku (démo multi-provider)
             if not self.anthropic_api_key:
                 raise ValueError(
                     "ANTHROPIC_API_KEY est requis quand LLM_PROVIDER=anthropic. "
@@ -105,5 +105,5 @@ class Settings(BaseSettings):
         return [origin.strip() for origin in self.cors_origins.split(",")]
 
 
-# Instance globale — importée par les autres modules
+# Instance globale - importée par les autres modules
 settings = Settings()

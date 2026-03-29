@@ -1,5 +1,5 @@
 """
-test_ingest.py — Script CLI de test du pipeline d'ingestion complet
+test_ingest.py - Script CLI de test du pipeline d'ingestion complet
 Uses: LangChain loaders, RecursiveCharacterTextSplitter, nomic-embed-text, ChromaDB
 Usage: python scripts/test_ingest.py
 Prérequis: Ollama doit tourner avec nomic-embed-text disponible
@@ -16,7 +16,7 @@ from backend.ingest.embedder import embed_and_store
 
 def main():
     print("╔══════════════════════════════════════════════╗")
-    print("║    Smart Doc Assistant — Test Ingestion       ║")
+    print("║    Smart Doc Assistant - Test Ingestion       ║")
     print("╚══════════════════════════════════════════════╝")
     print()
 

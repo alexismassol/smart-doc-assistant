@@ -1,11 +1,11 @@
 """
-routes_chat_stream.py — Endpoint SSE pour le streaming de réponses
+routes_chat_stream.py - Endpoint SSE pour le streaming de réponses
 Uses: FastAPI (StreamingResponse), LangChain (llm.astream()),
       retrieval/retriever.py, history/store.py (SQLite),
       agent/memory.py (fenêtre glissante)
 
 Endpoint :
-  POST /api/chat/stream — Streaming token-by-token via Server-Sent Events
+  POST /api/chat/stream - Streaming token-by-token via Server-Sent Events
 
 Format SSE :
   data: {"type": "token",   "content": "La "}

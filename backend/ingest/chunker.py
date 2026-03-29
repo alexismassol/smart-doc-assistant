@@ -1,5 +1,5 @@
 """
-chunker.py — Découpage de documents en chunks pour le pipeline RAG
+chunker.py - Découpage de documents en chunks pour le pipeline RAG
 Uses: LangChain RecursiveCharacterTextSplitter
 Paramètres : chunk_size=500 tokens, chunk_overlap=50
 """
@@ -19,7 +19,7 @@ def chunk_documents(
 
     Utilise LangChain RecursiveCharacterTextSplitter qui tente de couper
     sur les séparateurs naturels (paragraphes, phrases, mots) avant de couper
-    arbitrairement — meilleur résultat pour le retrieval.
+    arbitrairement - meilleur résultat pour le retrieval.
 
     Args:
         documents: Liste de Documents LangChain à découper.

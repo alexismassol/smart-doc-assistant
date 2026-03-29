@@ -1,5 +1,5 @@
 """
-test_vectorstore.py — Tests unitaires pour retrieval/vectorstore.py
+test_vectorstore.py - Tests unitaires pour retrieval/vectorstore.py
 TDD Phase Red : matrice de conformité complète (nominal, bornes, erreurs, contrats).
 Uses: pytest, unittest.mock, ChromaDB
 """
@@ -8,7 +8,7 @@ from unittest.mock import patch, MagicMock, PropertyMock
 
 
 class TestGetCollection:
-    """Tests pour get_collection() — accès à la collection ChromaDB."""
+    """Tests pour get_collection() - accès à la collection ChromaDB."""
 
     def test_returns_chroma_collection(self):
         """get_collection() doit retourner un objet collection ChromaDB."""

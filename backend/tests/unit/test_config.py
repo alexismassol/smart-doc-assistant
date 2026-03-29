@@ -1,5 +1,5 @@
 """
-test_config.py — Tests unitaires pour config.py
+test_config.py - Tests unitaires pour config.py
 TDD Phase Red : ces tests définissent le contrat de config.py avant son implémentation.
 Uses: pytest, pydantic-settings
 """

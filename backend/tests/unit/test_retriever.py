@@ -1,6 +1,6 @@
 """
-test_retriever.py — Tests unitaires pour retrieval/retriever.py
-TDD Phase Red : matrice de conformité complète — similarity search, reranking, bornes.
+test_retriever.py - Tests unitaires pour retrieval/retriever.py
+TDD Phase Red : matrice de conformité complète - similarity search, reranking, bornes.
 Uses: pytest, unittest.mock, LangChain Document
 """
 import pytest
@@ -12,7 +12,7 @@ from langchain_core.documents import Document
 
 @pytest.fixture
 def mock_chroma_results():
-    """Résultats ChromaDB simulés — format réel de l'API ChromaDB."""
+    """Résultats ChromaDB simulés - format réel de l'API ChromaDB."""
     return {
         "documents": [
             ["La limite de taux est 100 req/min."],
@@ -45,7 +45,7 @@ def mock_embeddings():
 # ── Tests similarity_search ───────────────────────────────────────────────────
 
 class TestSimilaritySearch:
-    """Tests pour similarity_search() — requête ChromaDB."""
+    """Tests pour similarity_search() - requête ChromaDB."""
 
     def test_returns_list_of_documents(self, mock_embeddings, mock_chroma_results):
         """similarity_search() doit retourner une liste de Documents LangChain."""
@@ -130,7 +130,7 @@ class TestSimilaritySearch:
 # ── Tests rerank ──────────────────────────────────────────────────────────────
 
 class TestRerank:
-    """Tests pour rerank() — filtrage par score threshold."""
+    """Tests pour rerank() - filtrage par score threshold."""
 
     def test_filters_below_threshold(self):
         """rerank() doit supprimer les résultats sous le score_threshold."""
@@ -210,7 +210,7 @@ class TestRerank:
 # ── Tests retrieve (fonction principale) ─────────────────────────────────────
 
 class TestRetrieve:
-    """Tests pour retrieve() — pipeline complet search + rerank."""
+    """Tests pour retrieve() - pipeline complet search + rerank."""
 
     def test_returns_list(self, mock_embeddings, mock_chroma_results):
         """retrieve() doit retourner une liste."""

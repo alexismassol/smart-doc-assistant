@@ -1,6 +1,6 @@
 """
-test_embedder.py — Tests unitaires pour ingest/embedder.py
-TDD Phase Red : Ollama et ChromaDB sont mockés — tests purement unitaires.
+test_embedder.py - Tests unitaires pour ingest/embedder.py
+TDD Phase Red : Ollama et ChromaDB sont mockés - tests purement unitaires.
 Uses: pytest, unittest.mock, LangChain Document
 """
 import pytest
@@ -9,7 +9,7 @@ from langchain_core.documents import Document
 
 
 class TestEmbedAndStore:
-    """Tests pour embed_and_store() — Ollama mocké, ChromaDB in-memory."""
+    """Tests pour embed_and_store() - Ollama mocké, ChromaDB in-memory."""
 
     def test_returns_count_of_stored_chunks(self, sample_documents):
         """embed_and_store() doit retourner le nombre de chunks stockés."""

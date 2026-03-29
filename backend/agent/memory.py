@@ -1,5 +1,5 @@
 """
-agent/memory.py — Gestion de la mémoire de conversation (fenêtre glissante)
+agent/memory.py - Gestion de la mémoire de conversation (fenêtre glissante)
 Uses: LangGraph state (history field), fenêtre glissante configurable
 La mémoire garde les N derniers échanges pour maintenir le contexte conversationnel.
 """

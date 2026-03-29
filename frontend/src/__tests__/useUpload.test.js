@@ -1,5 +1,5 @@
 /**
- * useUpload.test.js — Tests unitaires du hook useUpload
+ * useUpload.test.js - Tests unitaires du hook useUpload
  * Uses: Vitest, React Testing Library (renderHook), fetch mock
  *
  * Matrice de conformité :
@@ -53,7 +53,7 @@ afterEach(() => {
   vi.restoreAllMocks()
 })
 
-describe('useUpload — initialisation', () => {
+describe('useUpload - initialisation', () => {
   it('charge les documents au mount', async () => {
     setupFetchMock()
     const { result } = renderHook(() => useUpload())
@@ -75,7 +75,7 @@ describe('useUpload — initialisation', () => {
   })
 })
 
-describe('useUpload — uploadFile', () => {
+describe('useUpload - uploadFile', () => {
   it('retourne { success: true, chunks } après upload réussi', async () => {
     setupFetchMock({ uploadChunks: 8 })
     const { result } = renderHook(() => useUpload())
@@ -122,7 +122,7 @@ describe('useUpload — uploadFile', () => {
   })
 })
 
-describe('useUpload — ingestUrl', () => {
+describe('useUpload - ingestUrl', () => {
   it('retourne { success: true, chunks } après ingest URL réussi', async () => {
     setupFetchMock()
     const { result } = renderHook(() => useUpload())
@@ -137,7 +137,7 @@ describe('useUpload — ingestUrl', () => {
   })
 })
 
-describe('useUpload — deleteDoc', () => {
+describe('useUpload - deleteDoc', () => {
   it('retire le document de la liste localement', async () => {
     setupFetchMock()
     const { result } = renderHook(() => useUpload())

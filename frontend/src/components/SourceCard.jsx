@@ -1,5 +1,5 @@
 /**
- * SourceCard — Affiche un chunk source avec score de pertinence
+ * SourceCard - Affiche un chunk source avec score de pertinence
  */
 export default function SourceCard({ source }) {
   const scoreClass =

@@ -1,4 +1,4 @@
-# Documentation technique — Smart Doc Assistant
+# Documentation technique - Smart Doc Assistant
 
 ## Présentation
 
@@ -23,8 +23,8 @@ Le cœur de l'agent est un StateGraph LangGraph composé de 4 nœuds séquentiel
 Le pipeline d'ingestion transforme les documents bruts en vecteurs stockés dans ChromaDB :
 
 1. **Chargement** : PyMuPDF pour les PDF, pandas pour les CSV, lecture directe pour les fichiers Markdown et TXT, httpx + BeautifulSoup4 pour les URLs.
-2. **Découpage** : RecursiveCharacterTextSplitter de LangChain — taille de chunk : 500 tokens, overlap : 50 tokens.
-3. **Embedding** : nomic-embed-text via Ollama — modèle open-source, performant, 100% local.
+2. **Découpage** : RecursiveCharacterTextSplitter de LangChain - taille de chunk : 500 tokens, overlap : 50 tokens.
+3. **Embedding** : nomic-embed-text via Ollama - modèle open-source, performant, 100% local.
 4. **Stockage** : ChromaDB persistant dans `./data/chroma_db` avec métadonnées (source, page, type, timestamp).
 
 ### Stockage vectoriel avec ChromaDB

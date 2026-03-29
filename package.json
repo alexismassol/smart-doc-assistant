@@ -1,7 +1,7 @@
 {
   "name": "smart-doc-assistant",
   "version": "1.0.0",
-  "description": "Agent RAG conversationnel — LangGraph + ChromaDB + FastAPI + React 18",
+  "description": "Agent RAG conversationnel - LangGraph + ChromaDB + FastAPI + React 18",
   "author": "Alexis MASSOL",
   "license": "SEE LICENSE IN LICENSE",
   "private": true,

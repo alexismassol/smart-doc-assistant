@@ -1,5 +1,5 @@
 /**
- * UploadPanel.test.jsx — Tests Vitest + React Testing Library
+ * UploadPanel.test.jsx - Tests Vitest + React Testing Library
  * Uses: Vitest, @testing-library/react, @testing-library/user-event
  * Couvre : drop zone, feedback success/error, URL form, document list, delete
  */
@@ -24,7 +24,7 @@ function renderPanel(props = {}) {
 
 // ── Drop zone rendering ────────────────────────────────────────────────────────
 
-describe('UploadPanel — drop zone', () => {
+describe('UploadPanel - drop zone', () => {
   it('affiche le texte "Déposer un fichier" par défaut', () => {
     renderPanel()
     expect(screen.getByText('Déposer un fichier')).toBeInTheDocument()
@@ -55,7 +55,7 @@ describe('UploadPanel — drop zone', () => {
 
 // ── Feedback toast ─────────────────────────────────────────────────────────────
 
-describe('UploadPanel — feedback upload', () => {
+describe('UploadPanel - feedback upload', () => {
   it('affiche le feedback success après un upload réussi', async () => {
     const onUploadFile = vi.fn().mockResolvedValue({ success: true, chunks: 5 })
     renderPanel({ onUploadFile })
@@ -67,7 +67,7 @@ describe('UploadPanel — feedback upload', () => {
     })
 
     await waitFor(() => {
-      expect(screen.getByText(/doc\.pdf — 5 chunks indexés/)).toBeInTheDocument()
+      expect(screen.getByText(/doc\.pdf - 5 chunks indexés/)).toBeInTheDocument()
     })
   })
 
@@ -98,7 +98,7 @@ describe('UploadPanel — feedback upload', () => {
     })
 
     await waitFor(() => {
-      expect(screen.getByText(/test\.md — 3 chunks indexés/)).toBeInTheDocument()
+      expect(screen.getByText(/test\.md - 3 chunks indexés/)).toBeInTheDocument()
     })
 
     act(() => { vi.advanceTimersByTime(3001) })
@@ -113,7 +113,7 @@ describe('UploadPanel — feedback upload', () => {
 
 // ── URL form ───────────────────────────────────────────────────────────────────
 
-describe('UploadPanel — formulaire URL', () => {
+describe('UploadPanel - formulaire URL', () => {
   it('rend un input de type url avec placeholder "https://..."', () => {
     renderPanel()
     const input = screen.getByPlaceholderText('https://...')
@@ -175,7 +175,7 @@ describe('UploadPanel — formulaire URL', () => {
 
 // ── Liste de documents ─────────────────────────────────────────────────────────
 
-describe('UploadPanel — liste des documents', () => {
+describe('UploadPanel - liste des documents', () => {
   it('affiche "Aucun document indexé" quand la liste est vide', () => {
     renderPanel({ documents: [] })
     expect(screen.getByText('Aucun document indexé')).toBeInTheDocument()
@@ -218,13 +218,13 @@ describe('UploadPanel — liste des documents', () => {
 
 // ── Suppression de document ────────────────────────────────────────────────────
 
-describe('UploadPanel — suppression de document', () => {
+describe('UploadPanel - suppression de document', () => {
   it('appelle onDeleteDoc avec le source du document au clic sur supprimer', async () => {
     const onDeleteDoc = vi.fn()
     const docs = [{ source: 'rapport.pdf', type: 'pdf', chunk_count: 10 }]
     renderPanel({ documents: docs, onDeleteDoc })
 
-    // Le bouton de suppression est visible au hover — on le cherche par title
+    // Le bouton de suppression est visible au hover - on le cherche par title
     const deleteBtn = screen.getByTitle('Supprimer')
     await userEvent.click(deleteBtn)
 
@@ -244,7 +244,7 @@ describe('UploadPanel — suppression de document', () => {
 
 // ── Header ─────────────────────────────────────────────────────────────────────
 
-describe('UploadPanel — header', () => {
+describe('UploadPanel - header', () => {
   it('affiche le titre "Documents"', () => {
     renderPanel()
     expect(screen.getByText('Documents')).toBeInTheDocument()

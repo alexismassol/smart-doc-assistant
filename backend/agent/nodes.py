@@ -1,5 +1,5 @@
 """
-agent/nodes.py — Nœuds du graph LangGraph pour l'agent RAG
+agent/nodes.py - Nœuds du graph LangGraph pour l'agent RAG
 Uses: LangGraph (nœuds StateGraph), LangChain (ChatOllama / ChatMistralAI via config.py),
       ChromaDB via retrieval/retriever.py, Pydantic Settings v2
 Nœuds : retrieve_node → memory_node → generate_node
@@ -24,7 +24,7 @@ Réponds en français."""
 
 def retrieve_node(state: AgentState) -> Dict[str, Any]:
     """
-    Nœud 1 — Retrieval sémantique dans ChromaDB.
+    Nœud 1 - Retrieval sémantique dans ChromaDB.
 
     Embed la question, recherche les chunks les plus proches,
     filtre par score threshold, retourne contexte + confidence.
@@ -45,7 +45,7 @@ def retrieve_node(state: AgentState) -> Dict[str, Any]:
 
 def memory_node(state: AgentState) -> Dict[str, Any]:
     """
-    Nœud 2 — Application de la fenêtre glissante sur l'historique.
+    Nœud 2 - Application de la fenêtre glissante sur l'historique.
 
     Tronque l'historique aux N derniers échanges (settings.memory_window)
     pour éviter un contexte LLM trop long.
@@ -65,7 +65,7 @@ def memory_node(state: AgentState) -> Dict[str, Any]:
 
 def generate_node(state: AgentState) -> Dict[str, Any]:
     """
-    Nœud 3 — Génération de réponse via LLM (Ollama / Mistral / Claude).
+    Nœud 3 - Génération de réponse via LLM (Ollama / Mistral / Claude).
 
     Construit le prompt avec contexte documentaire + historique,
     appelle le LLM configuré, retourne la réponse et les sources.

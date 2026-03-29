@@ -17,7 +17,7 @@ export default function App() {
         latency={chat.lastLatency}
       />
 
-      {/* Layout principal : upload gauche (desktop), chat droite — stack vertical sur mobile */}
+      {/* Layout principal : upload gauche (desktop), chat droite - stack vertical sur mobile */}
       <div className="flex flex-1 overflow-hidden flex-col md:flex-row min-h-0">
         <UploadPanel
           documents={upload.documents}

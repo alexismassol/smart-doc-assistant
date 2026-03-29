@@ -16,7 +16,7 @@
 ![TDD](https://img.shields.io/badge/TDD-Red%20→%20Green%20→%20Refactor-brightgreen)
 ![License](https://img.shields.io/badge/License-Proprietary-red)
 
-> **Agent RAG conversationnel** — Interrogez vos documents en langage naturel.
+> **Agent RAG conversationnel** - Interrogez vos documents en langage naturel.
 > Propulsé par **LangGraph · Mistral · ChromaDB · FastAPI · React 18**
 
 ---
@@ -49,7 +49,7 @@ L'architecture repose sur :
 | **Retrieval sémantique** | ChromaDB + nomic-embed-text, reranking par score |
 | **Mémoire de conversation** | Contexte des 5 derniers échanges (LangGraph memory node) |
 | **Sources citées** | Chaque réponse affiche les chunks utilisés + score de pertinence |
-| **Multi-provider LLM** | Ollama (local) · Mistral API · Claude Haiku — switcher via `.env` |
+| **Multi-provider LLM** | Ollama (local) · Mistral API · Claude Haiku - switcher via `.env` |
 | **Interface React** | Upload drag & drop + chat streaming token-by-token (SSE) + dark theme |
 | **Streaming SSE** | Réponses en temps réel via Server-Sent Events (`/api/chat/stream`) |
 
@@ -75,8 +75,8 @@ L'architecture repose sur :
 │  chunk=500 / overlap=50            config.py                │
 │        ↓                                ↓                   │
 │  ┌─────────────────────────────────────────────────────┐    │
-│  │   ChromaDB  —  collection: smart_docs               │    │
-│  │   nomic-embed-text (Ollama) — dim 768               │    │
+│  │   ChromaDB  -  collection: smart_docs               │    │
+│  │   nomic-embed-text (Ollama) - dim 768               │    │
 │  └─────────────────────────────────────────────────────┘    │
 │                         ↓                                   │
 │  ┌─────────────────────────────────────────────────────┐    │
@@ -96,16 +96,16 @@ L'architecture repose sur :
 
 - [Python 3.11+](https://python.org)
 - [Node.js 18+](https://nodejs.org)
-- [Ollama](https://ollama.ai) — pour le mode local gratuit (voir installation ci-dessous)
+- [Ollama](https://ollama.ai) - pour le mode local gratuit (voir installation ci-dessous)
 
 ### Installation d'Ollama
 
 **macOS**
 ```bash
-# Option 1 — Application native (recommandée)
+# Option 1 - Application native (recommandée)
 # Télécharger le .dmg sur https://ollama.ai/download/mac puis l'installer
 
-# Option 2 — Homebrew
+# Option 2 - Homebrew
 brew install ollama
 ollama serve   # lancer le serveur
 ```
@@ -159,7 +159,7 @@ Le script `setup.sh` installe automatiquement :
 - Les packages npm du frontend React
 - Les modèles Ollama (`mistral` + `nomic-embed-text`) si absents
 
-### Démarrage — mode développement
+### Démarrage - mode développement
 
 ```bash
 # Lance backend (FastAPI :8000) + frontend (React :5173) simultanément
@@ -171,7 +171,7 @@ npm stop
 
 Ouvrir [http://localhost:5173](http://localhost:5173)
 
-### Démarrage — mode Docker
+### Démarrage - mode Docker
 
 ```bash
 # Build et lancement complet (interactif)
@@ -343,12 +343,12 @@ Le pipeline s'exécute automatiquement : chargement → découpage en chunks →
 
 ## Documentation
 
-- [`docs/TUTORIAL.md`](docs/TUTORIAL.md) — Code commenté brique par brique (ingest, agent, streaming, hooks React)
-- [`docs/TECHNOLOGIES.md`](docs/TECHNOLOGIES.md) — Chaque technologie expliquée avec alternatives
-- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — Architecture détaillée avec schéma
-- [`docs/SPECS.md`](docs/SPECS.md) — Spécifications fonctionnelles et techniques
-- [`docs/API.md`](docs/API.md) — Référence API complète
-- [`docs/OLLAMA.md`](docs/OLLAMA.md) — Guide Ollama : modèles, tests CLI, VPS, confidentialité
+- [`docs/TUTORIAL.md`](docs/TUTORIAL.md) - Code commenté brique par brique (ingest, agent, streaming, hooks React)
+- [`docs/TECHNOLOGIES.md`](docs/TECHNOLOGIES.md) - Chaque technologie expliquée avec alternatives
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) - Architecture détaillée avec schéma
+- [`docs/SPECS.md`](docs/SPECS.md) - Spécifications fonctionnelles et techniques
+- [`docs/API.md`](docs/API.md) - Référence API complète
+- [`docs/OLLAMA.md`](docs/OLLAMA.md) - Guide Ollama : modèles, tests CLI, VPS, confidentialité
 
 ---
 
@@ -358,21 +358,21 @@ Le pipeline s'exécute automatiquement : chargement → découpage en chunks →
 |---|---|---|
 | `❌ Ollama n'est pas installé` | Ollama absent | Voir section [Installation d'Ollama](#installation-dollama) |
 | `❌ Le serveur Ollama ne répond pas` | Ollama non démarré | Lancer `ollama serve` dans un terminal |
-| `ModuleNotFoundError: No module named 'backend'` | Mauvais répertoire de lancement | Le script `start-backend.sh` lance depuis la racine — vérifier `npm run start` |
+| `ModuleNotFoundError: No module named 'backend'` | Mauvais répertoire de lancement | Le script `start-backend.sh` lance depuis la racine - vérifier `npm run start` |
 | `chromadb` bloqué à l'install | Python 3.14 + `onnxruntime` absent | Le `setup.sh` gère ça automatiquement via `--no-deps` |
 | L'interface ne répond pas | Backend non démarré | Vérifier `curl http://localhost:8000/api/health` |
-| Modèle lent / timeout | CPU seul, pas de GPU | Normal sur CPU — Mistral 7B prend 10-30s/réponse sans GPU |
-| VPS — Ollama inaccessible | Firewall ou mauvais host | Lancer avec `OLLAMA_HOST=0.0.0.0 ollama serve` et ouvrir le port 11434 |
+| Modèle lent / timeout | CPU seul, pas de GPU | Normal sur CPU - Mistral 7B prend 10-30s/réponse sans GPU |
+| VPS - Ollama inaccessible | Firewall ou mauvais host | Lancer avec `OLLAMA_HOST=0.0.0.0 ollama serve` et ouvrir le port 11434 |
 
 ---
 
 ## Licence
 
-© 2026 Alexis MASSOL — Tous droits réservés.
+© 2026 Alexis MASSOL - Tous droits réservés.
 
 Ce projet est un **portfolio de démonstration**. Vous pouvez le consulter, le forker et l'étudier à des fins personnelles et éducatives. Toute utilisation commerciale ou redistribution est interdite sans autorisation écrite. Voir [LICENSE](LICENSE) pour les conditions complètes.
 
 ---
 
-*Projet portfolio — Alexis MASSOL | Senior Software Engineer · Embedded Systems & Cloud Platforms*
+*Projet portfolio - Alexis MASSOL | Senior Software Engineer · Embedded Systems & Cloud Platforms*
 *Stack : LangGraph · LangChain · Mistral · ChromaDB · FastAPI · React 18*

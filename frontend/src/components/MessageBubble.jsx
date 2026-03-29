@@ -2,7 +2,7 @@ import { useState } from 'react'
 import SourceCard from './SourceCard.jsx'
 
 /**
- * MessageBubble — Bulle de message (user ou assistant) avec sources optionnelles
+ * MessageBubble - Bulle de message (user ou assistant) avec sources optionnelles
  * Bouton "Copier" sur les bulles assistant (hors streaming)
  */
 export default function MessageBubble({ message }) {
@@ -32,7 +32,7 @@ export default function MessageBubble({ message }) {
           {message.isStreaming && (
             <span className="inline-block w-0.5 h-4 bg-accent ml-0.5 animate-pulse align-middle" />
           )}
-          {/* Bouton copier — uniquement sur les bulles assistant terminées */}
+          {/* Bouton copier - uniquement sur les bulles assistant terminées */}
           {!isUser && !message.isStreaming && message.content && (
             <button
               onClick={handleCopy}

@@ -1,5 +1,5 @@
 """
-test_memory.py — Tests unitaires pour agent/memory.py
+test_memory.py - Tests unitaires pour agent/memory.py
 TDD Phase Red : fenêtre glissante, ajout historique, troncature.
 Uses: pytest
 """

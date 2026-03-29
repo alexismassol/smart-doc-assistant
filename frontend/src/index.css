@@ -25,7 +25,7 @@ body {
   color: #f5f5f5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Dot grid background — effet Vercel/Linear */
+  /* Dot grid background - effet Vercel/Linear */
   background-image: radial-gradient(circle, var(--dot-color) var(--dot-size), transparent var(--dot-size));
   background-size: var(--dot-spacing) var(--dot-spacing);
 }

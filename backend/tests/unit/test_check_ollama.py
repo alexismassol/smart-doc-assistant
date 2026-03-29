@@ -1,5 +1,5 @@
 """
-test_check_ollama.py — Tests pour le script de vérification Ollama
+test_check_ollama.py - Tests pour le script de vérification Ollama
 TDD Phase Red : vérifie que check_ollama retourne les bons codes de sortie.
 """
 import pytest

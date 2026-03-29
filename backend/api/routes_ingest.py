@@ -1,5 +1,5 @@
 """
-routes_ingest.py — Endpoints FastAPI pour l'ingestion de documents
+routes_ingest.py - Endpoints FastAPI pour l'ingestion de documents
 Uses: FastAPI (APIRouter, UploadFile, File), LangChain loaders (ingest/loader.py),
       ChromaDB (ingest/embedder.py, retrieval/vectorstore.py)
 Endpoints: POST /api/upload, POST /api/ingest-url, GET /api/documents, DELETE /api/documents/{source}
@@ -81,7 +81,7 @@ async def upload_file(file: UploadFile = File(...)) -> UploadResponse:
         400: Format non supporté ou fichier vide.
         500: Erreur interne lors de l'ingestion.
     """
-    # Sanitisation du nom de fichier — supprime les caractères dangereux (path traversal, null bytes)
+    # Sanitisation du nom de fichier - supprime les caractères dangereux (path traversal, null bytes)
     raw_name = file.filename or "unknown"
     filename = re.sub(r'[^a-zA-Z0-9._\-]', '_', os.path.basename(raw_name))[:255]
     ext = os.path.splitext(filename)[1].lower()

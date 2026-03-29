@@ -1,5 +1,5 @@
 /**
- * StatusBar.test.jsx — Tests unitaires du composant StatusBar
+ * StatusBar.test.jsx - Tests unitaires du composant StatusBar
  * Uses: Vitest, React Testing Library
  *
  * Matrice de conformité :
@@ -11,14 +11,14 @@
 import { render, screen } from '@testing-library/react'
 import StatusBar from '../components/StatusBar.jsx'
 
-describe('StatusBar — logo', () => {
+describe('StatusBar - logo', () => {
   it('affiche le nom de l\'app', () => {
     render(<StatusBar documentsCount={0} />)
     expect(screen.getByText('Smart Doc Assistant')).toBeInTheDocument()
   })
 })
 
-describe('StatusBar — provider LLM', () => {
+describe('StatusBar - provider LLM', () => {
   it('ollama → label "Ollama local"', () => {
     render(<StatusBar llmProvider="ollama" documentsCount={0} />)
     expect(screen.getByText(/Ollama local/)).toBeInTheDocument()
@@ -40,7 +40,7 @@ describe('StatusBar — provider LLM', () => {
   })
 })
 
-describe('StatusBar — compteur documents', () => {
+describe('StatusBar - compteur documents', () => {
   it('0 documents → "0 documents"', () => {
     render(<StatusBar documentsCount={0} />)
     expect(screen.getByText(/0 documents/)).toBeInTheDocument()
@@ -62,7 +62,7 @@ describe('StatusBar — compteur documents', () => {
   })
 })
 
-describe('StatusBar — latence', () => {
+describe('StatusBar - latence', () => {
   it('latency null → pas d\'affichage latence', () => {
     render(<StatusBar documentsCount={0} latency={null} />)
     expect(screen.queryByText(/ms/)).not.toBeInTheDocument()

@@ -1,5 +1,5 @@
 """
-test_api_routes.py — Tests d'intégration FastAPI (tous les endpoints)
+test_api_routes.py - Tests d'intégration FastAPI (tous les endpoints)
 TDD Phase Red : httpx AsyncClient + FastAPI TestClient.
 Uses: FastAPI TestClient, pytest-asyncio, unittest.mock
 Couvre : /api/health, /api/chat, /api/upload, /api/ingest-url, /api/documents,
@@ -22,7 +22,7 @@ def client():
 
 @pytest.fixture
 def history_store_tmp(tmp_path):
-    """HistoryStore isolé sur fichier temporaire — injecté dans routes_chat."""
+    """HistoryStore isolé sur fichier temporaire - injecté dans routes_chat."""
     from backend.history.store import HistoryStore
     db = HistoryStore(db_path=str(tmp_path / "test_history.db"))
     return db

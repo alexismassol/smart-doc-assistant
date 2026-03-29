@@ -1,5 +1,5 @@
 """
-create_test_pdf.py — Génère un PDF de test minimal pour les tests unitaires
+create_test_pdf.py - Génère un PDF de test minimal pour les tests unitaires
 Usage: python create_test_pdf.py
 """
 import os

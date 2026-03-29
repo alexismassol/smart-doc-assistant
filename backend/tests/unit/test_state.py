@@ -1,5 +1,5 @@
 """
-test_state.py — Tests unitaires pour agent/state.py
+test_state.py - Tests unitaires pour agent/state.py
 TDD Phase Red : vérifie le contrat du TypedDict AgentState.
 Uses: pytest, LangGraph TypedDict
 """

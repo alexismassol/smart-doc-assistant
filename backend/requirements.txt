@@ -11,7 +11,7 @@ langgraph==1.1.3
 chromadb==1.5.5
 
 # ── Document loaders ─────────────────────────────────────────────────────────
-pymupdf==1.25.5          # PyMuPDF — parsing PDF rapide
+pymupdf==1.25.5          # PyMuPDF - parsing PDF rapide
 pandas==3.0.1            # CSV loader
 beautifulsoup4==4.14.3   # HTML scraping (URL ingestion)
 httpx==0.28.1            # HTTP async (URL fetching)

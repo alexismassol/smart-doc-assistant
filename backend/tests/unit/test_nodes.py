@@ -1,6 +1,6 @@
 """
-test_nodes.py — Tests unitaires pour agent/nodes.py
-TDD Phase Red : LLM et ChromaDB mockés — tests purement unitaires.
+test_nodes.py - Tests unitaires pour agent/nodes.py
+TDD Phase Red : LLM et ChromaDB mockés - tests purement unitaires.
 Uses: pytest, unittest.mock, LangGraph AgentState
 """
 import pytest
@@ -53,7 +53,7 @@ def state_with_context(base_state):
 # ── Tests retrieve_node ───────────────────────────────────────────────────────
 
 class TestRetrieveNode:
-    """Tests pour retrieve_node — appel au retriever."""
+    """Tests pour retrieve_node - appel au retriever."""
 
     def test_adds_context_to_state(self, base_state):
         """retrieve_node doit ajouter des résultats dans state['context']."""
@@ -101,7 +101,7 @@ class TestRetrieveNode:
 # ── Tests memory_node ─────────────────────────────────────────────────────────
 
 class TestMemoryNode:
-    """Tests pour memory_node — injection de l'historique."""
+    """Tests pour memory_node - injection de l'historique."""
 
     def test_applies_sliding_window(self, base_state):
         """memory_node doit appliquer la fenêtre glissante sur l'historique."""
@@ -133,7 +133,7 @@ class TestMemoryNode:
 # ── Tests generate_node ───────────────────────────────────────────────────────
 
 class TestGenerateNode:
-    """Tests pour generate_node — appel LLM (mocké)."""
+    """Tests pour generate_node - appel LLM (mocké)."""
 
     def test_returns_answer_in_state(self, state_with_context):
         """generate_node doit remplir state['answer']."""
@@ -184,7 +184,7 @@ class TestGenerateNode:
 # ── Tests graph flow ──────────────────────────────────────────────────────────
 
 class TestGraphFlow:
-    """Tests pour graph.py — construction et exécution du StateGraph."""
+    """Tests pour graph.py - construction et exécution du StateGraph."""
 
     def test_graph_can_be_compiled(self):
         """Le StateGraph doit pouvoir être compilé sans erreur."""

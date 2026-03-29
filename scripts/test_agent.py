@@ -1,5 +1,5 @@
 """
-test_agent.py — Session CLI interactive avec l'agent LangGraph
+test_agent.py - Session CLI interactive avec l'agent LangGraph
 Uses: LangGraph StateGraph (agent/graph.py), ChromaDB, LLM (ollama/mistral/anthropic)
 Usage: python scripts/test_agent.py
 Prérequis : Ollama doit tourner, ChromaDB doit contenir des documents.
@@ -17,14 +17,14 @@ from backend.retrieval.vectorstore import get_collection_count
 
 def main():
     print("╔══════════════════════════════════════════════╗")
-    print("║    Smart Doc Assistant — Agent CLI            ║")
+    print("║    Smart Doc Assistant - Agent CLI            ║")
     print("║    LangGraph + ChromaDB + Mistral/Ollama      ║")
     print("╚══════════════════════════════════════════════╝")
     print()
 
     count = get_collection_count()
     if count == 0:
-        print("⚠️  ChromaDB vide — lancer d'abord : python scripts/test_ingest.py")
+        print("⚠️  ChromaDB vide - lancer d'abord : python scripts/test_ingest.py")
         return
 
     print(f"📊 {count} chunks disponibles dans ChromaDB")

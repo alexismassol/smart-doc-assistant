@@ -1,7 +1,7 @@
 """
-test_stream_routes.py — Tests d'intégration TDD pour l'endpoint SSE
+test_stream_routes.py - Tests d'intégration TDD pour l'endpoint SSE
 Uses: FastAPI TestClient, unittest.mock, pytest
-Couvre : POST /api/chat/stream — événements SSE token/sources/done
+Couvre : POST /api/chat/stream - événements SSE token/sources/done
 TDD Phase Red : ces tests échouent tant que l'endpoint n'existe pas.
 """
 import json
@@ -79,7 +79,7 @@ class TestStreamEndpointExists:
         assert "text/event-stream" in response.headers.get("content-type", "")
 
     def test_stream_empty_question_returns_422(self, client):
-        """Question vide doit retourner 422 — même validation que /api/chat."""
+        """Question vide doit retourner 422 - même validation que /api/chat."""
         response = client.post("/api/chat/stream", json={"question": ""})
         assert response.status_code == 422
 

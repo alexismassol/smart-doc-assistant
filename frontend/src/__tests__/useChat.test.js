@@ -1,5 +1,5 @@
 /**
- * useChat.test.js — Tests unitaires du hook useChat (streaming SSE)
+ * useChat.test.js - Tests unitaires du hook useChat (streaming SSE)
  * Uses: Vitest, React Testing Library (renderHook), fetch mock (ReadableStream)
  *
  * Matrice de conformité :
@@ -48,7 +48,7 @@ function mockStreamFetch(tokens = ['Bonjour', ' monde'], sourcesPayload = {
 
 // ── Initialisation ─────────────────────────────────────────────────────────────
 
-describe('useChat — initialisation', () => {
+describe('useChat - initialisation', () => {
   it('commence avec une liste de messages vide', () => {
     const { result } = renderHook(() => useChat())
     expect(result.current.messages).toEqual([])
@@ -74,7 +74,7 @@ describe('useChat — initialisation', () => {
 
 // ── sendMessage nominal (streaming) ───────────────────────────────────────────
 
-describe('useChat — sendMessage nominal (stream SSE)', () => {
+describe('useChat - sendMessage nominal (stream SSE)', () => {
   afterEach(() => {
     vi.restoreAllMocks()
   })
@@ -178,7 +178,7 @@ describe('useChat — sendMessage nominal (stream SSE)', () => {
 
 // ── Bornes (inputs invalides) ──────────────────────────────────────────────────
 
-describe('useChat — bornes (inputs invalides)', () => {
+describe('useChat - bornes (inputs invalides)', () => {
   beforeEach(() => {
     global.fetch = vi.fn()
   })
@@ -208,7 +208,7 @@ describe('useChat — bornes (inputs invalides)', () => {
 
 // ── Erreurs réseau ─────────────────────────────────────────────────────────────
 
-describe('useChat — erreur réseau', () => {
+describe('useChat - erreur réseau', () => {
   afterEach(() => {
     vi.restoreAllMocks()
   })
@@ -235,7 +235,7 @@ describe('useChat — erreur réseau', () => {
 
 // ── Reset ──────────────────────────────────────────────────────────────────────
 
-describe('useChat — reset', () => {
+describe('useChat - reset', () => {
   afterEach(() => {
     vi.restoreAllMocks()
   })

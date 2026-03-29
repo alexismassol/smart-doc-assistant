@@ -1,5 +1,5 @@
 """
-agent/graph.py — StateGraph LangGraph complet pour l'agent RAG
+agent/graph.py - StateGraph LangGraph complet pour l'agent RAG
 Uses: LangGraph (StateGraph, START, END, edges), agent/nodes.py, agent/state.py
 Flow : START → retrieve_node → memory_node → generate_node → END
 """
@@ -16,18 +16,18 @@ def build_graph():
     Architecture du graph :
         START
           ↓
-        retrieve_node  — similarity search ChromaDB (top-k, score filter)
+        retrieve_node  - similarity search ChromaDB (top-k, score filter)
           ↓
-        memory_node    — fenêtre glissante sur l'historique (window=5)
+        memory_node    - fenêtre glissante sur l'historique (window=5)
           ↓
-        generate_node  — génération LLM avec contexte + historique
+        generate_node  - génération LLM avec contexte + historique
           ↓
         END
 
     Returns:
         Graph compilé prêt à être invoqué avec graph.invoke(state).
     """
-    # LangGraph StateGraph — state typé AgentState
+    # LangGraph StateGraph - state typé AgentState
     graph = StateGraph(AgentState)
 
     # ── Ajout des nœuds ────────────────────────────────────────────────────────
@@ -44,5 +44,5 @@ def build_graph():
     return graph.compile()
 
 
-# Instance globale — importée par les routes FastAPI
+# Instance globale - importée par les routes FastAPI
 agent_graph = build_graph()

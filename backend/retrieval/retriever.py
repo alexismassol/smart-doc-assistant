@@ -1,5 +1,5 @@
 """
-retriever.py — Retrieval sémantique avec reranking pour le pipeline RAG
+retriever.py - Retrieval sémantique avec reranking pour le pipeline RAG
 Uses: ChromaDB (similarity search via vectorstore.py),
       LangChain OllamaEmbeddings (nomic-embed-text),
       Pydantic Settings v2 (top_k, score_threshold)
@@ -41,14 +41,14 @@ def similarity_search(
 
     k = top_k or settings.retrieval_top_k
 
-    # Embedding de la query — même modèle que l'ingestion (cohérence obligatoire)
+    # Embedding de la query - même modèle que l'ingestion (cohérence obligatoire)
     embeddings_model = OllamaEmbeddings(
         model=settings.embedding_model,
         base_url=settings.ollama_base_url,
     )
     query_vector = embeddings_model.embed_query(query)
 
-    # Requête ChromaDB — retourne distances cosinus (0 = identique, 2 = opposé)
+    # Requête ChromaDB - retourne distances cosinus (0 = identique, 2 = opposé)
     collection = get_collection(collection_name)
     raw = collection.query(
         query_embeddings=[query_vector],
@@ -77,7 +77,7 @@ def similarity_search(
             "score": score,
         })
 
-    # Tri par score décroissant — le plus pertinent en premier
+    # Tri par score décroissant - le plus pertinent en premier
     return sorted(results, key=lambda x: x["score"], reverse=True)
 
 

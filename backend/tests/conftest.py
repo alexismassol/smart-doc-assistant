@@ -1,5 +1,5 @@
 """
-conftest.py — Fixtures partagées pour tous les tests backend
+conftest.py - Fixtures partagées pour tous les tests backend
 Uses: pytest, ChromaDB in-memory, unittest.mock
 """
 import pytest

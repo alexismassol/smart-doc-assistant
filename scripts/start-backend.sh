@@ -1,5 +1,5 @@
 #!/bin/bash
-# start-backend.sh — Lance uniquement le backend FastAPI
+# start-backend.sh - Lance uniquement le backend FastAPI
 # Utilisé par : npm run start:backend / npm run start (via concurrently)
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

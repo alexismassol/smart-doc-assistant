@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════════════════════════════════
-# Dockerfile.backend — Smart Doc Assistant · FastAPI + Python 3.11
+# Dockerfile.backend - Smart Doc Assistant · FastAPI + Python 3.11
 # ═══════════════════════════════════════════════════════════════════════════════
 #
 # Stack : Python 3.11-slim, FastAPI, Uvicorn, LangChain, LangGraph, ChromaDB
@@ -13,7 +13,7 @@ FROM python:3.11-slim
 
 # Métadonnées
 LABEL maintainer="Alexis MASSOL"
-LABEL description="Smart Doc Assistant — FastAPI Backend"
+LABEL description="Smart Doc Assistant - FastAPI Backend"
 
 WORKDIR /app
 

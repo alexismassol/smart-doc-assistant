@@ -1,6 +1,6 @@
 """
-store.py — Persistance SQLite de l'historique de conversation
-Uses: sqlite3 (stdlib Python) — aucune dépendance externe requise
+store.py - Persistance SQLite de l'historique de conversation
+Uses: sqlite3 (stdlib Python) - aucune dépendance externe requise
 
 Responsabilités :
 - Créer et initialiser la table `messages` à l'instanciation
@@ -21,7 +21,7 @@ from typing import Optional
 
 logger = logging.getLogger(__name__)
 
-# DDL de la table — créée si elle n'existe pas (IF NOT EXISTS = idempotent)
+# DDL de la table - créée si elle n'existe pas (IF NOT EXISTS = idempotent)
 _CREATE_TABLE_SQL = """
 CREATE TABLE IF NOT EXISTS messages (
     id          INTEGER PRIMARY KEY AUTOINCREMENT,

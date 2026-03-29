@@ -1,5 +1,5 @@
 /**
- * upload_and_chat.spec.js — Tests E2E Playwright : parcours complet
+ * upload_and_chat.spec.js - Tests E2E Playwright : parcours complet
  * Uses: Playwright Test, Chromium headless
  *
  * Scénarios testés :
@@ -15,7 +15,7 @@
  */
 import { test, expect } from '@playwright/test'
 
-test.describe('Interface principale — chargement', () => {
+test.describe('Interface principale - chargement', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/')
   })
@@ -62,7 +62,7 @@ test.describe('UploadPanel', () => {
   })
 })
 
-test.describe('ChatWindow — interactions', () => {
+test.describe('ChatWindow - interactions', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/')
   })

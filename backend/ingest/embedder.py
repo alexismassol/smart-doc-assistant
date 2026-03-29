@@ -1,5 +1,5 @@
 """
-embedder.py — Génération d'embeddings et stockage dans ChromaDB
+embedder.py - Génération d'embeddings et stockage dans ChromaDB
 Uses: LangChain OllamaEmbeddings (nomic-embed-text via Ollama),
       ChromaDB (base vectorielle persistante)
 """
@@ -41,7 +41,7 @@ def embed_and_store(
     col_name = collection_name or settings.chroma_collection
     path = chroma_path or settings.chroma_persist_dir
 
-    # LangChain OllamaEmbeddings — modèle nomic-embed-text (dim 768)
+    # LangChain OllamaEmbeddings - modèle nomic-embed-text (dim 768)
     embeddings_model = OllamaEmbeddings(
         model=settings.embedding_model,
         base_url=settings.ollama_base_url,
@@ -51,7 +51,7 @@ def embed_and_store(
     texts = [doc.page_content for doc in documents]
     vectors = embeddings_model.embed_documents(texts)
 
-    # ChromaDB — client persistant local
+    # ChromaDB - client persistant local
     client = chromadb.PersistentClient(path=path)
     collection = client.get_or_create_collection(
         name=col_name,

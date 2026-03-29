@@ -1,5 +1,5 @@
 """
-routes_chat.py — Endpoints FastAPI pour le chat avec l'agent RAG
+routes_chat.py - Endpoints FastAPI pour le chat avec l'agent RAG
 Uses: FastAPI (APIRouter, Pydantic models), LangGraph agent (graph.py),
       agent/state.py (create_initial_state), history/store.py (SQLite persistance),
       time (latency_ms)
@@ -97,7 +97,7 @@ async def chat(request: ChatRequest) -> ChatResponse:
     state = create_initial_state(request.question, session_id)
     state["history"] = history
 
-    # Invocation du graph LangGraph — mesure de latence
+    # Invocation du graph LangGraph - mesure de latence
     start = time.monotonic()
     result = agent_graph.invoke(state)
     latency_ms = int((time.monotonic() - start) * 1000)

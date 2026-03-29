@@ -1,5 +1,5 @@
 """
-test_loader.py — Tests unitaires pour ingest/loader.py
+test_loader.py - Tests unitaires pour ingest/loader.py
 TDD Phase Red : définit le contrat de loader.py avant son implémentation.
 Uses: pytest, unittest.mock, LangChain Document
 """
@@ -86,7 +86,7 @@ class TestLoadPDF:
             os.path.dirname(__file__), "../../..", "data/sample_docs/example.pdf"
         )
         if not os.path.exists(sample_pdf):
-            pytest.skip("example.pdf non disponible — sera testé en intégration")
+            pytest.skip("example.pdf non disponible - sera testé en intégration")
         docs = load_pdf(sample_pdf)
         assert isinstance(docs, list)
         assert len(docs) > 0

@@ -1,5 +1,5 @@
 #!/bin/bash
-# setup.sh — Installation complète du projet Smart Doc Assistant
+# setup.sh - Installation complète du projet Smart Doc Assistant
 # Installe : venv Python, dépendances backend, npm frontend, modèles Ollama
 
 set -e
@@ -8,7 +8,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
 echo "╔══════════════════════════════════════════════╗"
-echo "║    Smart Doc Assistant — Setup complet        ║"
+echo "║    Smart Doc Assistant - Setup complet        ║"
 echo "╚══════════════════════════════════════════════╝"
 echo ""
 

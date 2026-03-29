@@ -1,10 +1,10 @@
 import { useState, useCallback } from 'react'
 
 /**
- * useChat — Gestion de la conversation avec l'agent RAG
+ * useChat - Gestion de la conversation avec l'agent RAG
  * Uses: fetch API (ReadableStream) → POST /api/chat/stream (SSE token-by-token)
  *
- * Streaming SSE — 3 types d'événements reçus :
+ * Streaming SSE - 3 types d'événements reçus :
  *   { type: "token",   content: "La " }           → accumulation token par token
  *   { type: "sources", sources: [...], confidence, session_id }
  *   { type: "done" }                               → fin du stream
@@ -96,7 +96,7 @@ export function useChat() {
               ))
             }
           } catch {
-            // Ligne SSE malformée — on ignore
+            // Ligne SSE malformée - on ignore
           }
         }
       }
@@ -140,7 +140,7 @@ export function useChat() {
         role: m.role,
         content: m.content,
         id: i,
-        // sources et confidence non stockés en SQLite — null = pas d'affichage de métriques
+        // sources et confidence non stockés en SQLite - null = pas d'affichage de métriques
         sources: [],
         confidence: null,
         isStreaming: false,
@@ -149,7 +149,7 @@ export function useChat() {
       setSessionId(targetSessionId)
       setLastLatency(null)
     } catch {
-      // Silencieux — session non chargée
+      // Silencieux - session non chargée
     }
   }, [])
 

@@ -1,5 +1,5 @@
 """
-agent/state.py — État typé de l'agent LangGraph (AgentState)
+agent/state.py - État typé de l'agent LangGraph (AgentState)
 Uses: LangGraph (TypedDict state management), Python typing
 L'AgentState est le seul objet qui transite entre tous les nœuds du graph.
 """

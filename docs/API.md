@@ -1,4 +1,4 @@
-# API Reference — Smart Doc Assistant
+# API Reference - Smart Doc Assistant
 
 Backend FastAPI disponible sur `http://localhost:8000`
 Documentation Swagger interactive : `http://localhost:8000/docs`
@@ -54,7 +54,7 @@ Envoie une question à l'agent RAG LangGraph.
 ### `GET /api/history/{session_id}`
 Historique **persistant SQLite** d'une session (survie aux redémarrages).
 
-**Query params** : `?limit=20` (optionnel — retourne les N messages les plus récents)
+**Query params** : `?limit=20` (optionnel - retourne les N messages les plus récents)
 
 **Response 200**
 ```json

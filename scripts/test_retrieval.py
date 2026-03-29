@@ -1,5 +1,5 @@
 """
-test_retrieval.py — Script CLI de test du retrieval sémantique
+test_retrieval.py - Script CLI de test du retrieval sémantique
 Uses: ChromaDB (similarity search), nomic-embed-text (Ollama), retriever.py
 Usage: python scripts/test_retrieval.py
 Prérequis : Ollama doit tourner, nomic-embed-text disponible,
@@ -23,7 +23,7 @@ QUESTIONS_TEST = [
 
 def main():
     print("╔══════════════════════════════════════════════╗")
-    print("║    Smart Doc Assistant — Test Retrieval       ║")
+    print("║    Smart Doc Assistant - Test Retrieval       ║")
     print("╚══════════════════════════════════════════════╝")
     print()
 
@@ -36,7 +36,7 @@ def main():
     print()
 
     if count == 0:
-        print("⚠️  Collection vide — lancer d'abord : python scripts/test_ingest.py")
+        print("⚠️  Collection vide - lancer d'abord : python scripts/test_ingest.py")
         return
 
     # ── 3 questions de test ────────────────────────────────────────────────────

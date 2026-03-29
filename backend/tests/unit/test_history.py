@@ -1,5 +1,5 @@
 """
-test_history.py — Tests TDD pour le module history SQLite (Red → Green → Refactor)
+test_history.py - Tests TDD pour le module history SQLite (Red → Green → Refactor)
 Uses: pytest, sqlite3 (in-memory via tmp_path)
 
 Matrice de conformité :

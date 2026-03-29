@@ -1,6 +1,6 @@
 #!/bin/bash
 # ═══════════════════════════════════════════════════════════════════════════════
-# start-docker.sh — Lancement Docker de Smart Doc Assistant
+# start-docker.sh - Lancement Docker de Smart Doc Assistant
 # ═══════════════════════════════════════════════════════════════════════════════
 #
 # Usage : ./scripts/start-docker.sh [OPTIONS]
@@ -38,7 +38,7 @@ LOCAL_IP=$(ifconfig 2>/dev/null | grep "inet " | grep -v 127.0.0.1 | head -1 | a
 
 echo ""
 echo "╔══════════════════════════════════════════════════════╗"
-echo "║       Smart Doc Assistant — Docker                   ║"
+echo "║       Smart Doc Assistant - Docker                   ║"
 echo "╚══════════════════════════════════════════════════════╝"
 echo ""
 echo "📋 Endpoints :"
@@ -104,11 +104,11 @@ if [ "$DETACH" = true ]; then
   echo "  npm run docker:ps      → État des conteneurs"
   echo "  npm run docker:stop    → Arrêter"
   echo ""
-  # Vérification Ollama — modèles présents ?
+  # Vérification Ollama - modèles présents ?
   echo "⏳ Vérification Ollama..."
   sleep 3
   if docker exec smart-doc-ollama ollama list 2>/dev/null | grep -q "nomic-embed-text"; then
-    echo "✅ Ollama — modèles présents"
+    echo "✅ Ollama - modèles présents"
   else
     echo "⚠️  Premier lancement : modèles Ollama à télécharger :"
     echo "   docker exec smart-doc-ollama ollama pull nomic-embed-text"

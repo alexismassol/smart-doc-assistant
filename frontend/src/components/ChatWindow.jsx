@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import MessageBubble from './MessageBubble.jsx'
 
 /**
- * ChatWindow — Zone principale de conversation
+ * ChatWindow - Zone principale de conversation
  * Gère : liste des messages, input, bouton envoi, typing indicator, auto-scroll
  */
 export default function ChatWindow({ messages, isLoading, onSend, onReset }) {
@@ -32,7 +32,7 @@ export default function ChatWindow({ messages, isLoading, onSend, onReset }) {
 
   return (
     <main className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden">
-      {/* Zone messages — padding-bottom pour ne pas coller à la barre d'input */}
+      {/* Zone messages - padding-bottom pour ne pas coller à la barre d'input */}
       <div className="flex-1 overflow-y-auto overflow-x-hidden px-6 pt-6 pb-4 space-y-5">
         {messages.length === 0 ? (
           <EmptyState onSend={onSend} />

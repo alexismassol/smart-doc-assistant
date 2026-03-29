@@ -1,5 +1,5 @@
 /**
- * MessageBubble.test.jsx — Tests unitaires du composant MessageBubble
+ * MessageBubble.test.jsx - Tests unitaires du composant MessageBubble
  * Uses: Vitest, React Testing Library
  *
  * Matrice de conformité :
@@ -22,7 +22,7 @@ const assistantMessage = {
   id: 2,
 }
 
-describe('MessageBubble — message utilisateur', () => {
+describe('MessageBubble - message utilisateur', () => {
   it('affiche le contenu du message', () => {
     render(<MessageBubble message={userMessage} />)
     expect(screen.getByText('Quelle est la limite de taux ?')).toBeInTheDocument()
@@ -39,7 +39,7 @@ describe('MessageBubble — message utilisateur', () => {
   })
 })
 
-describe('MessageBubble — message assistant', () => {
+describe('MessageBubble - message assistant', () => {
   it('affiche la réponse de l\'assistant', () => {
     render(<MessageBubble message={assistantMessage} />)
     expect(screen.getByText('La limite est de 100 req/min.')).toBeInTheDocument()
@@ -48,7 +48,7 @@ describe('MessageBubble — message assistant', () => {
   it('affiche le score de confiance', () => {
     render(<MessageBubble message={assistantMessage} />)
     expect(screen.getByText(/Confiance/i)).toBeInTheDocument()
-    // 87% apparaît aussi dans SourceCard — on vérifie qu'au moins un élément est present
+    // 87% apparaît aussi dans SourceCard - on vérifie qu'au moins un élément est present
     expect(screen.getAllByText('87%').length).toBeGreaterThanOrEqual(1)
   })
 
@@ -63,8 +63,8 @@ describe('MessageBubble — message assistant', () => {
   })
 })
 
-describe('MessageBubble — sources', () => {
-  it('sans sources — pas de section sources', () => {
+describe('MessageBubble - sources', () => {
+  it('sans sources - pas de section sources', () => {
     const msg = { ...assistantMessage, sources: [] }
     render(<MessageBubble message={msg} />)
     expect(screen.queryByText(/source/)).not.toBeInTheDocument()
@@ -78,7 +78,7 @@ describe('MessageBubble — sources', () => {
   })
 })
 
-describe('MessageBubble — confiance colorée', () => {
+describe('MessageBubble - confiance colorée', () => {
   it('confidence >= 0.7 → texte success', () => {
     const msg = { ...assistantMessage, confidence: 0.7, sources: [] }
     const { container } = render(<MessageBubble message={msg} />)
@@ -100,7 +100,7 @@ describe('MessageBubble — confiance colorée', () => {
   })
 })
 
-describe('MessageBubble — erreur', () => {
+describe('MessageBubble - erreur', () => {
   it('isError → style rouge affiché', () => {
     const msg = { role: 'assistant', content: 'Erreur de connexion', isError: true, sources: [], id: 3 }
     const { container } = render(<MessageBubble message={msg} />)

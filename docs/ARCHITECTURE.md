@@ -1,4 +1,4 @@
-# Architecture — Smart Doc Assistant
+# Architecture - Smart Doc Assistant
 
 ## Vue d'ensemble
 
@@ -43,9 +43,9 @@
 │                                           ↓                                   │
 │   ┌─────────────────────────────────────────────────────────────────────────┐ │
 │   │   LLM (switchable via LLM_PROVIDER dans .env)                           │ │
-│   │   ollama     → Mistral 7B    (local, gratuit — dev)                     │ │
-│   │   mistral    → mistral-small-latest  (API — prod)                       │ │
-│   │   anthropic  → claude-haiku-4-5  (alternatif — démo multi-provider)     │ │
+│   │   ollama     → Mistral 7B    (local, gratuit - dev)                     │ │
+│   │   mistral    → mistral-small-latest  (API - prod)                       │ │
+│   │   anthropic  → claude-haiku-4-5  (alternatif - démo multi-provider)     │ │
 │   └─────────────────────────────────────────────────────────────────────────┘ │
 └───────────────────────────────────────────────────────────────────────────────┘
 ```

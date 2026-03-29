@@ -1,4 +1,4 @@
-# Ollama — Guide complet
+# Ollama - Guide complet
 
 Ollama fait tourner les LLMs **100% en local**, sans API key, sans connexion internet pour l'inférence.
 
@@ -57,7 +57,7 @@ Puis redémarrer : `npm run stop && npm run start`
 ## Confidentialité
 
 - **Inférence** : 100% locale, aucune donnée envoyée à un serveur externe
-- **Ingestion URL** : le backend fetch la page web une seule fois (httpx), puis le texte est vectorisé localement — aucune donnée n'est envoyée à Ollama
+- **Ingestion URL** : le backend fetch la page web une seule fois (httpx), puis le texte est vectorisé localement - aucune donnée n'est envoyée à Ollama
 - **Documents** : stockés dans `data/chroma_db/` sur votre machine uniquement
 
 ---
@@ -93,7 +93,7 @@ curl http://localhost:11434/api/generate \
 ### Tester via l'API Smart Doc Assistant
 
 ```bash
-# Sans document — vérifie que l'agent répond correctement
+# Sans document - vérifie que l'agent répond correctement
 curl -X POST http://localhost:8000/api/chat \
   -H "Content-Type: application/json" \
   -d '{"question": "Comment fonctionne le pipeline RAG ?", "session_id": "test"}'
@@ -125,7 +125,7 @@ curl -X POST http://localhost:8000/api/chat \
 Pour utiliser Ollama sur un serveur OVH, AWS, Hetzner, etc. :
 
 ```bash
-# Sur le serveur — exposer Ollama sur le réseau
+# Sur le serveur - exposer Ollama sur le réseau
 OLLAMA_HOST=0.0.0.0 ollama serve
 
 # Ou en service systemd (persistant)
@@ -139,4 +139,4 @@ OLLAMA_BASE_URL=http://votre-ip:11434
 sudo ufw allow 11434
 ```
 
-> **Note GPU** : sur un VPS avec GPU NVIDIA, Ollama utilise CUDA automatiquement — les réponses passent de 30-60s à 1-3s.
+> **Note GPU** : sur un VPS avec GPU NVIDIA, Ollama utilise CUDA automatiquement - les réponses passent de 30-60s à 1-3s.

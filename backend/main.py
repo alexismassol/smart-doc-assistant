@@ -1,5 +1,5 @@
 """
-main.py — Point d'entrée FastAPI pour Smart Doc Assistant
+main.py - Point d'entrée FastAPI pour Smart Doc Assistant
 Uses: FastAPI (app, CORS, lifespan), Uvicorn (ASGI server),
       Pydantic Settings v2 (config.py), LangGraph agent (agent/graph.py)
 Routes : /api/chat, /api/upload, /api/ingest-url, /api/documents, /api/health
@@ -21,13 +21,13 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """
-    Lifespan FastAPI — exécuté au démarrage et à l'arrêt.
+    Lifespan FastAPI - exécuté au démarrage et à l'arrêt.
     Initialise la connexion ChromaDB au boot pour détecter les erreurs tôt.
     """
     # Démarrage : vérification ChromaDB
     try:
         count = get_collection_count()
-        logger.info(f"ChromaDB connecté — {count} chunks dans '{settings.chroma_collection}'")
+        logger.info(f"ChromaDB connecté - {count} chunks dans '{settings.chroma_collection}'")
     except Exception as e:
         logger.warning(f"ChromaDB non disponible au démarrage : {e}")
 
@@ -41,15 +41,15 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Smart Doc Assistant API",
     description="""
-Agent RAG conversationnel — interrogez vos documents en langage naturel.
+Agent RAG conversationnel - interrogez vos documents en langage naturel.
 
 **Stack** : LangGraph · LangChain · ChromaDB · Mistral/Ollama · FastAPI
 
 **Endpoints principaux** :
-- `POST /api/chat` — Question → réponse + sources citées
-- `POST /api/upload` — Upload document (PDF, CSV, MD)
-- `POST /api/ingest-url` — Ingestion page web
-- `GET /api/documents` — Liste des documents indexés
+- `POST /api/chat` - Question → réponse + sources citées
+- `POST /api/upload` - Upload document (PDF, CSV, MD)
+- `POST /api/ingest-url` - Ingestion page web
+- `GET /api/documents` - Liste des documents indexés
 """,
     version="1.0.0",
     lifespan=lifespan,
